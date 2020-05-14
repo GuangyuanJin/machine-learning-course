@@ -305,16 +305,15 @@
 | 成本函数中出现的两个常见术语是 **误差(error)** 和 **平方误差(squared error)** 。
 
 |  **公式2. 误差函数示例** 是我们的预测与实际值相差多远。
-|            .. figure:: _img/Error_Function.png
+ .. figure:: _img/Error_Function.png
    
-  
 
 |  对这个值进行平方运算，可以得出 **公式3.平方误差函数的示例** 中所示的一般误差距离(general error distance)的有用表达式。
-|  .. figure:: _img/Square_Error_Function.png
+  .. figure:: _img/Square_Error_Function.png
    
 | 我们知道，实际值之上的2误差和实际值之下2的误差应该彼此一样严重。平方误差使这一点很清楚，因为这两个值都导致平方误差为4。
 | 我们将使用 **公式4：均方误差（MSE）函数**  中所示的均方误差（MSE）函数作为我们的成本函数。此函数查找我们所有数据点的平均平方误差值。
-| .. figure:: _img/MSE_Function.png
+ .. figure:: _img/MSE_Function.png
    
    
 
