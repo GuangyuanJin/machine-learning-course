@@ -28,6 +28,36 @@ Motivation
    **图1.具有线性关系的示例数据集** [`code`__]
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/linear_regression.py
+   
+  
+```python
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn import datasets, linear_model
+from sklearn.datasets import make_regression
+from sklearn.model_selection import train_test_split
+
+# Create a data set for analysis
+
+x, y = make_regression(n_samples=500, n_features = 1, noise=25, random_state=0)
+
+# Split the data set into testing and training data
+
+x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0)
+
+# Plot the data
+
+sns.set_style("darkgrid")
+sns.regplot(x_test, y_test, fit_reg=False)
+
+# Remove ticks from the plot
+
+plt.xticks([])
+plt.yticks([])
+
+plt.tight_layout()
+plt.show()
+```
 
 我们的目标是找到最能模拟数据点路径的线，称为最佳拟合线。
 方程式1中的方程式是线性方程式的示例。
