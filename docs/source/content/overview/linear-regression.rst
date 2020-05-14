@@ -32,6 +32,7 @@ Motivation
 
 
 ```python
+
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn import datasets, linear_model
@@ -58,6 +59,7 @@ plt.yticks([])
 
 plt.tight_layout()
 plt.show()
+
 ```
 
 
