@@ -8,7 +8,7 @@
 
 
 **********
-Motivation
+动机
 **********
 当我们看到一个数据集时，我们尝试找出它的含义。我们在数据点之间寻找连接，看看是否可以找到任何模式。
 有时很难看到这些模式，因此我们使用代码来帮助我们找到它们。
@@ -72,6 +72,40 @@ Motivation
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/linear_regression_lobf.py
 
+.. code-block:: python
+        import matplotlib.pyplot as plt
+        import seaborn as sns
+        from sklearn import datasets, linear_model
+        from sklearn.datasets import make_regression
+        from sklearn.model_selection import train_test_split
+
+        # Create a data set for analysis
+        x, y = make_regression(n_samples=500, n_features = 1, noise=25, random_state=0)
+
+        # Split the data set into testing and training data
+        x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0)
+
+        # Create a linear regression object
+        regression = linear_model.LinearRegression()
+
+        # Train the model using the training set
+        regression.fit(x_train, y_train)
+
+        # Make predictions using the testing set
+        y_predictions = regression.predict(x_test)
+
+        # Plot the data
+        sns.set_style("darkgrid")
+        sns.regplot(x_test, y_test, fit_reg=False)
+        plt.plot(x_test, y_predictions, color='black')
+
+        # Remove ticks from the plot
+        plt.xticks([])
+        plt.yticks([])
+
+        plt.tight_layout()
+        plt.show()
+
 让我们分解一下。我们已经知道x是输入值，y是我们的预测输出。
 a₀和a₁描述了我们线的形状。a₀称为 **偏差(bias)**，a₁称为**权重(weight)**。
 更改a₀将在绘图上向上或向下移动线，更改a₁会更改线的斜率。
@@ -98,6 +132,31 @@ a₀和a₁描述了我们线的形状。a₀称为 **偏差(bias)**，a₁称�
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/not_linear_regression.py
 
+.. code-block:: python
+        import matplotlib.pyplot as plt
+        import seaborn as sns
+        from sklearn import datasets, linear_model
+        from sklearn.datasets import make_regression
+        from sklearn.model_selection import train_test_split
+
+        # Create a data set for analysis
+        x, y = make_regression(n_samples=500, n_features = 1, noise=25, random_state=0)
+        y = y ** 2
+
+        # Split the data set into testing and training data
+        x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0)
+
+        # Plot the data
+        sns.set_style("darkgrid")
+        sns.regplot(x_test, y_test, fit_reg=False)
+
+        # Remove ticks from the plot
+        plt.xticks([])
+        plt.yticks([])
+
+        plt.tight_layout()
+        plt.show()
+
 值得注意的是，有时您可以对数据应用转换，使其看起来是线性的。
 例如，您可以将对数应用于指数数据以使其平坦化。
 然后，您可以对转换后的数据使用线性回归。
@@ -113,6 +172,32 @@ a₀和a₁描述了我们线的形状。a₀称为 **偏差(bias)**，a₁称�
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/exponential_regression.py
 
+.. code-block:: python
+        import matplotlib.pyplot as plt
+        import seaborn as sns
+        import numpy as np
+        from sklearn import datasets, linear_model
+        from sklearn.datasets import make_regression
+        from sklearn.model_selection import train_test_split
+
+        # Create a data set for analysis
+        x, y = make_regression(n_samples=500, n_features = 1, noise=25, random_state=0)
+        y = np.exp((y + abs(y.min())) / 75)
+
+        # Split the data set into testing and training data
+        x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0)
+
+        # Plot the data
+        sns.set_style("darkgrid")
+        sns.regplot(x_test, y_test, fit_reg=False)
+
+        # Remove ticks from the plot
+        plt.xticks([])
+        plt.yticks([])
+
+        plt.tight_layout()
+        plt.show()
+
 *图5*是对数转换输出变量后的相同数据。
 
 .. figure:: _img/Exponential_Transformed.png
@@ -121,6 +206,33 @@ a₀和a₁描述了我们线的形状。a₀称为 **偏差(bias)**，a₁称�
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/exponential_regression_transformed.py
 
+.. code-block:: python
+        import matplotlib.pyplot as plt
+        import seaborn as sns
+        import numpy as np
+        from sklearn import datasets, linear_model
+        from sklearn.datasets import make_regression
+        from sklearn.model_selection import train_test_split
+
+        # Create a data set for analysis
+        x, y = make_regression(n_samples=500, n_features = 1, noise=25, random_state=0)
+        y = np.exp((y + abs(y.min())) / 75)
+        # Transform data so that it looks linear
+        y = np.log(y)
+
+        # Split the data set into testing and training data
+        x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0)
+
+        # Plot the data
+        sns.set_style("darkgrid")
+        sns.regplot(x_test, y_test, fit_reg=False)
+
+        # Remove ticks from the plot
+        plt.xticks([])
+        plt.yticks([])
+
+        plt.tight_layout()
+        plt.show()
 
 *************
 成本函数(Cost Function)
@@ -135,6 +247,53 @@ a₀和a₁描述了我们线的形状。a₀称为 **偏差(bias)**，a₁称�
    **图6.图2中的图，其中强调了一个预测的代价** [`code`__]
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/linear_regression_cost.py
+
+.. code-block:: python
+        import matplotlib.pyplot as plt
+        import seaborn as sns
+        from sklearn import datasets, linear_model
+        from sklearn.datasets import make_regression
+        from sklearn.model_selection import train_test_split
+
+        # Create a data set for analysis
+        x, y = make_regression(n_samples=500, n_features = 1, noise=25, random_state=0)
+
+        # Split the data set into testing and training data
+        x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0)
+
+        # Create a linear regression object
+        regression = linear_model.LinearRegression()
+
+        # Train the model using the training set
+        regression.fit(x_train, y_train)
+
+        # Make predictions using the testing set
+        y_predictions = regression.predict(x_test)
+
+        # Grab a sample pair of points to analyze cost
+        point_number = 2
+        x_sample = [x_test[point_number].item(), x_test[point_number].item()]
+        y_sample = [y_test[point_number].item(), y_predictions[point_number].item()]
+
+        # Plot the data
+        sns.set_style("darkgrid")
+        sns.regplot(x_test, y_test, fit_reg=False)
+        plt.plot(x_test, y_predictions, color='black')
+        plt.plot(x_sample, y_sample, color='red', label="cost", marker='o')
+
+        # Add a legend
+        n = ['actual value', 'prediction']
+        for i, txt in enumerate(n):
+            plt.annotate(txt, (x_sample[i], y_sample[i]), xytext=(10, -10),
+                         textcoords='offset pixels', fontsize=20)
+        plt.legend(fontsize=20)
+
+        # Remove ticks from the plot
+        plt.xticks([])
+        plt.yticks([])
+
+        plt.tight_layout()
+        plt.show()
 
 成本函数中出现的两个常见术语是**误差(error)**和 **平方误差(squared error)**。
 误差[ 公式2 ]是我们的预测与实际值相差多远。
