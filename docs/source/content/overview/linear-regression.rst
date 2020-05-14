@@ -39,13 +39,13 @@
         from sklearn.datasets import make_regression
         from sklearn.model_selection import train_test_split
         
-        # Create a data set for analysis
+        # 创建分析数据集
         x, y = make_regression(n_samples=500, n_features = 1, noise=25, random_state=0)
         
-        # Split the data set into testing and training data
+        # 将数据集分成测试数据和训练数据
         x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0)
         
-        # Plot the data
+        # 绘制数据
         sns.set_style("darkgrid")
         sns.regplot(x_test, y_test, fit_reg=False)
         
@@ -81,22 +81,22 @@
         from sklearn.datasets import make_regression
         from sklearn.model_selection import train_test_split
 
-        # Create a data set for analysis
+        # 创建分析数据集
         x, y = make_regression(n_samples=500, n_features = 1, noise=25, random_state=0)
 
-        # Split the data set into testing and training data
+        # 将数据集分成测试数据和训练数据
         x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0)
 
-        # Create a linear regression object
+        # 创建线性回归对象
         regression = linear_model.LinearRegression()
 
-        # Train the model using the training set
+        # 使用训练集训练模型
         regression.fit(x_train, y_train)
 
-        # Make predictions using the testing set
+        # 使用测试集进行预测
         y_predictions = regression.predict(x_test)
 
-        # Plot the data
+        # 绘制数据
         sns.set_style("darkgrid")
         sns.regplot(x_test, y_test, fit_reg=False)
         plt.plot(x_test, y_predictions, color='black')
