@@ -30,7 +30,8 @@ Motivation
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/linear_regression.py
    
 
-.. code:: python
+.. code-block:: python
+
         import matplotlib.pyplot as plt
         import seaborn as sns
         from sklearn import datasets, linear_model
