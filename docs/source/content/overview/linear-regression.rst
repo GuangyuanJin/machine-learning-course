@@ -1,5 +1,5 @@
 #################
-Linear Regression
+线性回归
 #################
 
 .. contents::
@@ -10,40 +10,33 @@ Linear Regression
 **********
 Motivation
 **********
-When we are presented with a data set, we try and figure out what it means. 
-We look for connections between the data points and see if we can find 
-any patterns. Sometimes those patterns are hard to see so we use code to help 
-us find them. There are lots of different patterns data can follow so it helps 
-if we can narrow down those options and write less code to analyze them. One 
-of those patterns is a linear relationship. If we can find this pattern in our 
-data, we can use the linear regression technique to analyze it.
+当我们看到一个数据集时，我们尝试找出它的含义。我们在数据点之间寻找连接，看看是否可以找到任何模式。
+有时很难看到这些模式，因此我们使用代码来帮助我们找到它们。
+数据可以遵循许多不同的模式，因此如果我们可以缩小选择范围并减少编写代码来分析它们的话，将很有帮助。
+这些模式(patterns)之一是线性关系。如果我们可以在数据中找到这种模式，则可以使用线性回归技术对其进行分析。
 
 
 ********
-Overview
+总览
 ********
-**Linear regression** is a technique used to analyze a **linear relationship** 
-between **input** variables and a single **output** variable. A **linear 
-relationship** means that the data points tend to follow a straight line. 
-**Simple linear regression** involves only a single input variable. *Figure 1* 
-shows a data set with a linear relationship.
+**线性回归**是一种用于分析**输入**变量和单个**输出**变量 之间的**线性关系**的技术。
+**线性关系**指的是数据点趋向于遵循一条直线。 
+**简单线性回归**仅涉及单个输入变量。图1 显示了具有线性关系的数据集。
 
 .. figure:: _img/LR.png
    
-   **Figure 1. A sample data set with a linear relationship** [`code`__]
+   **图1.具有线性关系的示例数据集** [`code`__]
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/linear_regression.py
 
-Our goal is to find the line that best models the path of the data points 
-called a line of best fit. The equation in *Equation 1*, is an example of a
-linear equation.
+我们的目标是找到最能模拟数据点路径的线，称为最佳拟合线。
+方程式1中的方程式是线性方程式的示例。
 
 .. figure:: _img/Linear_Equation.png
    
-   **Equation 1. A linear equation**
+   **方程1.线性方程**
 
-*Figure 2* shows the data set we use in *Figure 1* with a line of best fit
-through it.
+*图2*显示了我们在图1中使用的数据集，其中最适合它。
 
 .. figure:: _img/LR_LOBF.png
    
@@ -51,187 +44,162 @@ through it.
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/linear_regression_lobf.py
 
-Let’s break it down. We already know that x is the input value and y is our 
-predicted output. a₀ and a₁ describe the shape of our line. a₀ is called the 
-**bias** and a₁ is called a **weight**. Changing a₀ will move the line up or 
-down on the plot and changing a₁ changes the slope of the line. Linear 
-regression helps us pick appropriate values for a₀ and a₁.
+让我们分解一下。我们已经知道x是输入值，y是我们的预测输出。
+a₀和a₁描述了我们线的形状。a₀称为 **偏差(bias)**，a₁称为**权重(weight)**。
+更改a₀将在绘图上向上或向下移动线，更改a₁会更改线的斜率。
+线性回归有助于我们为a₀和a₁选取合适的值。
 
-Note that we could have more than one input variable. In this case, we call it 
-**multiple linear regression**. Adding extra input variables just means that 
-we’ll need to find more weights. For this exercise, we will only consider a 
-simple linear regression.
+注意，我们可以有多个输入变量。
+在这种情况下，我们称其为 **多元线性回归**。
+添加额外的输入变量仅意味着我们需要找到更多权重。
+对于本练习，我们将仅考虑简单的线性回归。
 
 
 ***********
-When to Use
+何时使用
 ***********
-Linear regression is a useful technique but isn’t always the right choice for 
-your data. Linear regression is a good choice when there is a linear 
-relationship between your independent and dependent variables and you are 
-trying to predict continuous values [*Figure 1*].
+线性回归是一种有用的技术，但并不总是适合您的数据的正确选择。
+当您的自变量和因变量之间存在线性关系并且您试图预测连续值时，线性回归是一个不错的选择[ 图1 ]。
 
-It is not a good choice when the relationship between independent and 
-dependent variables is more complicated or when outputs are discrete values. 
-For example, *Figure 3* shows a data set that does not have a linear 
-relationship so linear regression would not be a good choice. 
+当自变量和因变量之间的关系更复杂或输出是离散值时，这不是一个好选择。
+例如，图3显示的数据集没有线性关系，因此线性回归将不是一个好选择。
 
 .. figure:: _img/Not_Linear.png
    
-   **Figure3. A sample data set without a linear relationship** [`code`__]
+   **图3。没有线性关系的样本数据集** [`code`__]
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/not_linear_regression.py
 
-It is worth noting that sometimes you can apply transformations to data so 
-that it appears to be linear. For example, you could apply a logarithm to 
-exponential data to flatten it out. Then you can use linear regression on the 
-transformed data. One method of transforming data in :code:`sklearn` is 
-documented here_.
+值得注意的是，有时您可以对数据应用转换，使其看起来是线性的。
+例如，您可以将对数应用于指数数据以使其平坦化。
+然后，您可以对转换后的数据使用线性回归。
+在转换数据的一种方法sklearn是记录 here_.
 
 .. _here: https://scikit-learn.org/stable/modules/generated/sklearn.compose.TransformedTargetRegressor.html
 
-*Figure 4* is an example of data that does not look linear but can be 
-transformed to have a linear relationship.
+*图4*是一个看起来不是线性但可以转换为线性关系的数据示例。
 
 .. figure:: _img/Exponential.png
    
-   **Figure 4. A sample data set that follows an exponential curve** [`code`__]
+   **图4.遵循指数曲线的示例数据集** [`code`__]
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/exponential_regression.py
 
-*Figure 5* is the same data after transforming the output variable with a 
-logarithm.
+*图5*是对数转换输出变量后的相同数据。
 
 .. figure:: _img/Exponential_Transformed.png
    
-   **Figure 5. The data set from Figure 4 after applying a logarithm to the 
-   output variable** [`code`__]
+   **图5.将对数应用到输出变量后的图4的数据集** [`code`__]
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/exponential_regression_transformed.py
 
 
 *************
-Cost Function
+成本函数
 *************
-Once we have a prediction, we need some way to tell if it’s reasonable. A 
-**cost function** helps us do this. The cost function compares all the 
-predictions against their actual values and provides us with a single number 
-that we can use to score the prediction function. *Figure 6* shows the cost 
-for one such prediction.
+有了预测后，我们需要某种方法来判断它是否合理。
+一个 **成本函数(cost function)**可以帮助我们做到这一点。
+成本函数将所有预测与它们的实际值进行比较，并为我们提供一个可用来对预测函数评分的单一数字。
+*图6*显示了一种这样的预测的成本。
 
 .. figure:: _img/Cost.png
    
-   **Figure 6. The plot from Figure 2 with the cost of one prediction 
-   emphasized** [`code`__]
+   **图6.图2中的图，其中强调了一个预测的代价** [`code`__]
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/linear_regression_cost.py
 
-Two common terms that appear in cost functions are the **error** and 
-**squared error**. The error [*Equation 2*] is how far away from the actual 
-value our prediction is.
+成本函数中出现的两个常见术语是**误差(error)**和 **平方误差(squared error)**。
+误差[ 公式2 ]是我们的预测与实际值相差多远。
 
 .. figure:: _img/Error_Function.png
    
-   **Equation 2. An example error function**
+   **公式2. 误差函数示例**
 
-Squaring this value gives us a useful expression for the general error 
-distance as shown in *Equation 3*.
+对这个值进行平方运算，可以得出*等式3*中所示的一般误差距离(general error distance)的有用表达式。
 
 .. figure:: _img/Square_Error_Function.png
    
-   **Equation 3. An example squared error function**
+   **公式3.平方误差函数的示例**
 
-We know an error of 2 above the actual value and an error of 2 below the 
-actual value should be about as bad as each other. The squared error makes 
-this clear because both of these values result in a squared error of 4.
+我们知道，实际值之上的2误差和实际值之下2的误差应该彼此一样严重。
+平方误差使这一点很清楚，因为这两个值都导致平方误差为4。
 
-We will use the Mean Squared Error (MSE) function shown in *Equation 4* as our 
-cost function. This function finds the average squared error value for all of 
-our data points.
+我们将使用公式4中所示的均方误差（MSE）函数作为我们的成本函数。
+此函数查找我们所有数据点的平均平方误差值。
 
 .. figure:: _img/MSE_Function.png
    
-   **Equation 4. The Mean Squared Error (MSE) function**
+   **公式4：均方误差（MSE）函数**
 
-Cost functions are important to us because they measure how accurate our model 
-is against the target values. Making sure our models are accurate will remain 
-a key theme throughout later modules.
+成本函数对我们很重要，因为它们可以衡量我们的模型相对于目标值的准确性。
+在以后的模块中，确保模型的准确性仍然是关键主题。
 
 
 *******
-Methods
+方法
 *******
-A lower cost function means a lower average error across the data points. In 
-other words, lower cost means a more accurate model for the data set. We will 
-briefly mention a couple of methods for minimizing the cost function.
+成本较低的函数意味着数据点之间的平均误差较低。
+换句话说，较低的成本意味着数据集的模型更准确。
+我们将简要介绍一些使成本函数最小化的方法
 
-Ordinary Least Squares
+普通最小二乘
 ======================
-Ordinary least squares is a common method for minimizing the cost function. In 
-this method, we treat the data as one big matrix and use linear algebra to 
-estimate the optimal values of the coefficients in our linear equation. 
-Luckily, you don't have to worry about doing any linear algebra because the 
-Python code handles it for you. This also happens to be the method used for 
-this modules code.
+普通最小二乘法(Ordinary least squares)是使成本函数最小化的常用方法。
+在这种方法中，我们将数据视为一个大矩阵，然后使用线性代数来估计线性方程式中系数的最佳值。
+幸运的是，您不必担心做任何线性代数，因为Python代码会为您处理它。
+这也恰好是用于此模块代码的方法。
 
-Below are the relevant lines of Python code from this module related to 
-ordinary least squares.
+以下是此模块中与普通最小二乘法有关的Python代码的相关行。
 
 .. code-block:: python
 
-   # Create a linear regression object
+   # 创建一个线性回归对象
    regr = linear_model.LinearRegression()
 
-Gradient Descent
+梯度下降(Gradient Descent)
 ================
-Gradient descent is an iterative method of guessing the coefficients of our 
-linear equation in order to minimize the cost function. The name comes from 
-the concept of gradients in calculus. Basically this method will slightly move 
-the values of the coefficients and monitor whether the cost decreases or not. 
-If the cost keeps increasing over several iterations, we stop because we've 
-probably hit the minimum already. The number of iterations and tolerance 
-before stopping can both be chosen to fine tune the method.
+梯度下降法是一种猜测线性方程式系数的迭代方法，以最小化成本函数。
+该名称来自微积分中的渐变概念。
+基本上，此方法将稍微移动系数的值并监视成本是否降低。
+如果成本在多次迭代中持续增加，我们会停止，因为我们可能已经达到了最低要求。
+可以选择停止前的迭代次数和公差来微调该方法。
 
-Below are the relevant lines of Python code from this module modified to use 
-gradient descent.
+以下是此模块经过修改以使用梯度下降的Python代码的相关行。
 
 .. code-block:: python
 
-   # Create a linear regression object
+   # 创建一个线性回归对象
    regr = linear_model.SGDRegressor(max_iter=10000, tol=0.001)
 
 
 ****
-Code
+代码
 ****
-This module's main code is available in the linear_regression_lobf.py_ file.
+该模块的主要代码位于 linear_regression_lobf.py_ 文件中。
 
 .. _linear_regression_lobf.py: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/linear_regression_lobf.py
 
-All figures in this module were created with simple modifications of the 
-linear_regression.py_ code.
+该模块中的所有图形都是通过对 linear_regression.py_ 代码进行简单的修改而创建的 。
 
 .. _linear_regression.py: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/linear_regression.py
 
-In the code, we analyze a data set with a linear relationship. We split the 
-data into a training set to train our model and a testing set to test its 
-accuracy. You may have guessed that the model used is based on linear 
-regression. We also display a nice plot of the data with a line of best fit.
+在代码中，我们分析具有线性关系的数据集。
+我们将数据分为训练集以训练我们的模型和测试集以测试其准确性。
+您可能已经猜到所使用的模型基于线性回归。
+我们还将显示一条最佳拟合的数据图。
 
 
 **********
-Conclusion
+结论
 **********
-In this module, we learned about linear regression. This technique helps us 
-model data with linear relationships. Linear relationships are fairly simple 
-but still show up in a lot of data sets so this is a good technique to know. 
-Learning about linear regression is a good first step towards learning more 
-complicated analysis techniques. We will build on a lot of the concepts 
-covered here in later modules.
+在本模块中，我们学习了线性回归。此技术可帮助我们对具有线性关系的数据进行建模。
+线性关系非常简单，但是仍然会出现在许多数据集中，因此这是一个很好的技术。
+学习线性回归是学习更复杂的分析技术的良好第一步。
+在以后的模块中，我们将基于此处介绍的许多概念。
 
 
 ************
-References
+参考资料
 ************
 
 1. https://towardsdatascience.com/introduction-to-machine-learning-algorithms-linear-regression-14c4e325882a
