@@ -19,7 +19,7 @@
 ********
 总览
 ********
-\ **线性回归**\ 是一种用于分析 **输入**变量和单个 **输出** 变量 之间的 **线性关系** 的技术。
+ **线性回归** 是一种用于分析 **输入** 变量和单个 **输出** 变量 之间的 **线性关系** 的技术。
  **线性关系** 指的是数据点趋向于遵循一条直线。 
  **简单线性回归** 仅涉及单个输入变量。图1 显示了具有线性关系的数据集。
 
@@ -62,7 +62,7 @@
 
 .. figure:: _img/Linear_Equation.png
    
-   **方程1.线性方程**
+   **方程1.线性方程** 
 
 *图2*显示了我们在图1中使用的数据集，其中最适合它。
 
@@ -107,12 +107,12 @@
         plt.show()
 
 让我们分解一下。我们已经知道x是输入值，y是我们的预测输出。
-a₀和a₁描述了我们线的形状。a₀称为 **偏差(bias)**，a₁称为**权重(weight)**。
+a₀和a₁描述了我们线的形状。a₀称为 **偏差(bias)** ，a₁称为 **权重(weight)** 。
 更改a₀将在绘图上向上或向下移动线，更改a₁会更改线的斜率。
 线性回归有助于我们为a₀和a₁选取合适的值。
 
 注意，我们可以有多个输入变量。
-在这种情况下，我们称其为 **多元线性回归**。
+在这种情况下，我们称其为 **多元线性回归** 。
 添加额外的输入变量仅意味着我们需要找到更多权重。
 对于本练习，我们将仅考虑简单的线性回归。
 
@@ -128,7 +128,7 @@ a₀和a₁描述了我们线的形状。a₀称为 **偏差(bias)**，a₁称�
 
 .. figure:: _img/Not_Linear.png
    
-   **图3。没有线性关系的样本数据集** [`code`__]
+   **图3。没有线性关系的样本数据集**  [`code`__]
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/not_linear_regression.py
 
@@ -168,7 +168,7 @@ a₀和a₁描述了我们线的形状。a₀称为 **偏差(bias)**，a₁称�
 
 .. figure:: _img/Exponential.png
    
-   **图4.遵循指数曲线的示例数据集** [`code`__]
+   **图4.遵循指数曲线的示例数据集**  [`code`__]
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/exponential_regression.py
 
@@ -202,7 +202,7 @@ a₀和a₁描述了我们线的形状。a₀称为 **偏差(bias)**，a₁称�
 
 .. figure:: _img/Exponential_Transformed.png
    
-   **图5.将对数应用到输出变量后的图4的数据集** [`code`__]
+   **图5.将对数应用到输出变量后的图4的数据集**  [`code`__]
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/exponential_regression_transformed.py
 
@@ -238,13 +238,13 @@ a₀和a₁描述了我们线的形状。a₀称为 **偏差(bias)**，a₁称�
 成本函数(Cost Function)
 *************
 有了预测后，我们需要某种方法来判断它是否合理。
-一个 **成本函数**可以帮助我们做到这一点。
+一个 **成本函数** 可以帮助我们做到这一点。
 成本函数将所有预测与它们的实际值进行比较，并为我们提供一个可用来对预测函数评分的单一数字。
 *图6*显示了一种这样的预测的成本。
 
 .. figure:: _img/Cost.png
    
-   **图6.图2中的图，其中强调了一个预测的代价** [`code`__]
+   **图6.图2中的图，其中强调了一个预测的代价**  [`code`__]
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/linear_regression_cost.py
 
@@ -295,18 +295,18 @@ a₀和a₁描述了我们线的形状。a₀称为 **偏差(bias)**，a₁称�
         plt.tight_layout()
         plt.show()
 
-成本函数中出现的两个常见术语是**误差(error)**和 **平方误差(squared error)**。
+成本函数中出现的两个常见术语是 **误差(error)** 和 **平方误差(squared error)** 。
 误差[ 公式2 ]是我们的预测与实际值相差多远。
 
 .. figure:: _img/Error_Function.png
    
-   **公式2. 误差函数示例**
+   **公式2. 误差函数示例** 
 
 对这个值进行平方运算，可以得出*等式3*中所示的一般误差距离(general error distance)的有用表达式。
 
 .. figure:: _img/Square_Error_Function.png
    
-   **公式3.平方误差函数的示例**
+   **公式3.平方误差函数的示例** 
 
 我们知道，实际值之上的2误差和实际值之下2的误差应该彼此一样严重。
 平方误差使这一点很清楚，因为这两个值都导致平方误差为4。
@@ -316,7 +316,7 @@ a₀和a₁描述了我们线的形状。a₀称为 **偏差(bias)**，a₁称�
 
 .. figure:: _img/MSE_Function.png
    
-   **公式4：均方误差（MSE）函数**
+   **公式4：均方误差（MSE）函数** 
 
 成本函数对我们很重要，因为它们可以衡量我们的模型相对于目标值的准确性。
 在以后的模块中，确保模型的准确性仍然是关键主题。
@@ -345,7 +345,7 @@ a₀和a₁描述了我们线的形状。a₀称为 **偏差(bias)**，a₁称�
 
 梯度下降(Gradient Descent)
 ================
-**梯度下降法**是一种猜测线性方程式系数的迭代方法，以最小化成本函数。
+ **梯度下降法** 是一种猜测线性方程式系数的迭代方法，以最小化成本函数。
 该名称来自微积分中的渐变概念。
 基本上，此方法将稍微移动系数的值并监视成本是否降低。
 如果成本在多次迭代中持续增加，我们会停止，因为我们可能已经达到了最低要求。
