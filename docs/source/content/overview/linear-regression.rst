@@ -19,7 +19,7 @@ Motivation
 ********
 总览
 ********
-**线性回归**是一种用于分析**输入**变量和单个**输出**变量 之间的**线性关系**的技术。
+**线性回归** 是一种用于分析**输入**变量和单个**输出**变量 之间的**线性关系**的技术。
 **线性关系**指的是数据点趋向于遵循一条直线。 
 **简单线性回归**仅涉及单个输入变量。图1 显示了具有线性关系的数据集。
 
@@ -30,34 +30,29 @@ Motivation
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/linear_regression.py
    
 
-```
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn import datasets, linear_model
-from sklearn.datasets import make_regression
-from sklearn.model_selection import train_test_split
-
-# Create a data set for analysis
-
-x, y = make_regression(n_samples=500, n_features = 1, noise=25, random_state=0)
-
-# Split the data set into testing and training data
-
-x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0)
-
-# Plot the data
-
-sns.set_style("darkgrid")
-sns.regplot(x_test, y_test, fit_reg=False)
-
-# Remove ticks from the plot
-
-plt.xticks([])
-plt.yticks([])
-
-plt.tight_layout()
-plt.show()
-```
+.. code-block:: python
+        import matplotlib.pyplot as plt
+        import seaborn as sns
+        from sklearn import datasets, linear_model
+        from sklearn.datasets import make_regression
+        from sklearn.model_selection import train_test_split
+        
+        # Create a data set for analysis
+        x, y = make_regression(n_samples=500, n_features = 1, noise=25, random_state=0)
+        
+        # Split the data set into testing and training data
+        x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0)
+        
+        # Plot the data
+        sns.set_style("darkgrid")
+        sns.regplot(x_test, y_test, fit_reg=False)
+        
+        # Remove ticks from the plot
+        plt.xticks([])
+        plt.yticks([])
+        
+        plt.tight_layout()
+        plt.show()
 
 
 
