@@ -29,7 +29,8 @@ Motivation
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/linear_regression.py
    
-  
+
+
 ```python
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -58,6 +59,8 @@ plt.yticks([])
 plt.tight_layout()
 plt.show()
 ```
+
+
 
 我们的目标是找到最能模拟数据点路径的线，称为最佳拟合线。
 方程式1中的方程式是线性方程式的示例。
