@@ -74,6 +74,7 @@
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/linear_regression_lobf.py
 
 .. code-block:: python
+
         import matplotlib.pyplot as plt
         import seaborn as sns
         from sklearn import datasets, linear_model
@@ -134,6 +135,7 @@
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/not_linear_regression.py
 
 .. code-block:: python
+
         import matplotlib.pyplot as plt
         import seaborn as sns
         from sklearn import datasets, linear_model
@@ -174,6 +176,7 @@
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/exponential_regression.py
 
 .. code-block:: python
+
         import matplotlib.pyplot as plt
         import seaborn as sns
         import numpy as np
@@ -208,6 +211,7 @@
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/exponential_regression_transformed.py
 
 .. code-block:: python
+
         import matplotlib.pyplot as plt
         import seaborn as sns
         import numpy as np
@@ -250,6 +254,7 @@
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/linear_regression/linear_regression_cost.py
 
 .. code-block:: python
+
         import matplotlib.pyplot as plt
         import seaborn as sns
         from sklearn import datasets, linear_model
