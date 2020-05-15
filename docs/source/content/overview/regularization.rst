@@ -38,6 +38,7 @@
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/regularization/regularization_linear.py
 
 .. code-block:: python
+
                 import matplotlib.pyplot as plt
                 import seaborn as sns
                 from sklearn.preprocessing import PolynomialFeatures
@@ -77,6 +78,7 @@
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/regularization/regularization_quadratic.py
 
 .. code-block:: python
+
                 import matplotlib.pyplot as plt
                 import seaborn as sns
                 from sklearn.preprocessing import PolynomialFeatures
@@ -119,6 +121,7 @@
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/regularization/regularization_polynomial.py
 
 .. code-block:: python
+
                 import matplotlib.pyplot as plt
                 import seaborn as sns
                 from sklearn.preprocessing import PolynomialFeatures
@@ -197,6 +200,7 @@
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/regularization/regularization_ridge.py
 
 .. code-block:: python
+
                 import matplotlib.pyplot as plt
                 import seaborn as sns
                 from sklearn.preprocessing import PolynomialFeatures
@@ -244,6 +248,7 @@
 .. _regularization_ridge.py: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/regularization/regularization_ridge.py
 
 .. code-block:: python
+
     regModel = Pipeline([('poly', PolynomialFeatures(degree=6)), ('ridge', Ridge(alpha=5.0))])
 
 | 添加Ridge回归就像在Pipeline调用中添加一个附加参数一样简单。
@@ -277,6 +282,7 @@ Lasso Regression
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/regularization/regularization_lasso.py
 
 .. code-block:: python
+
                 import matplotlib.pyplot as plt
                 import seaborn as sns
                 from sklearn.preprocessing import PolynomialFeatures
@@ -326,6 +332,7 @@ Lasso Regression
 .. _regularization_lasso.py: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/overview/regularization/regularization_lasso.py
 
 .. code-block:: python
+
   regModel = Pipeline([('poly', PolynomialFeatures(degree=6)), \
   ('lasso', Lasso(alpha=0.1, max_iter=100000))])
 
