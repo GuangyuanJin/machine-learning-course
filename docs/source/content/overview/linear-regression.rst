@@ -261,33 +261,39 @@
         from sklearn.datasets import make_regression
         from sklearn.model_selection import train_test_split
 
-        # Create a data set for analysis
+        # 创建数据集
+        # scikit-learn随机数据生成 make_regression生成回归模型数据
+        # X为样本特征，y为样本输出， n_samples共500个样本，n_features每个样本1个特征,
+        # noise 干扰 0为一条直线上的点, 加入干扰25
+        # coef为回归系数:coef 默认为false  true为线性模型
+        # random_state 随机种子，保证程序每次运行都分割一样的训练集和测试集。
         x, y = make_regression(n_samples=500, n_features = 1, noise=25, random_state=0)
 
-        # Split the data set into testing and training data
+        # 把数据集分割为测试数据和训练数据
+        # random_state 随机种子，保证程序每次运行都分割一样的训练集和测试集。
         x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=0)
 
-        # Create a linear regression object
+        # 创建一个线性回归对象
         regression = linear_model.LinearRegression()
 
-        # Train the model using the training set
+        # 用训练集训练模型
         regression.fit(x_train, y_train)
 
-        # Make predictions using the testing set
+        # 用测试集进行预测
         y_predictions = regression.predict(x_test)
 
-        # Grab a sample pair of points to analyze cost
+        # 抓取各个点的样本对来分析成本
         point_number = 2
         x_sample = [x_test[point_number].item(), x_test[point_number].item()]
         y_sample = [y_test[point_number].item(), y_predictions[point_number].item()]
 
-        # Plot the data
+        # 绘制数据
         sns.set_style("darkgrid")
         sns.regplot(x_test, y_test, fit_reg=False)
         plt.plot(x_test, y_predictions, color='black')
         plt.plot(x_sample, y_sample, color='red', label="cost", marker='o')
 
-        # Add a legend
+        # 添加一个图例（legend）
         n = ['actual value', 'prediction']
         for i, txt in enumerate(n):
             plt.annotate(txt, (x_sample[i], y_sample[i]), xytext=(10, -10),
