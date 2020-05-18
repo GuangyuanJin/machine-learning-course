@@ -1,45 +1,38 @@
 ====================
-Logistic Regression
+逻辑回归（Logistic Regression）
 ====================
 
 .. contents::
   :local:
   :depth: 3
 
-Introduction
+介绍
 -----------------
 
-Logistic regression is a method for binary classification.  It works to divide
-points in a dataset into two distinct classes, or categories.
-For simplicity, let's call them class A and class B.
-The model will give us the probability that a given point belongs in category B.
-If it is low (lower than 50%), then we classify it in category A.
-Otherwise, it falls in class B.
-It's also important to note that logistic regression is better for this purpose
-than linear regression with a threshold
-because the threshold would have to be manually set, which is not feasible.
-Logistic regression will instead create a sort of S-curve
-(using the sigmoid function) which will also help show certainty, since the
-output from logistic regression is not just a one or zero.
-Here is the standard logistic function, note that the output is always between
-0 and 1, but never reaches either of those values.
+
+| Logistic回归是一种用于 **二分类(binary classification)** 的方法。
+| 它可以将数据集中的点划分为两个不同的类或类别。为了简单起见，我们将它们称为A类(class A)和B类(class B)。
+| 该模型将为我们提供给定点属于B类的可能性。如果该点较低（低于50％），则将其归为A类。否则，将其分类为B类。
+| 同样，必须注意，在这分类问题上，logistic回归比有阈值的线性回归更好，因为阈值必须手动设置，这是不可行的。
+| 相反，逻辑回归将创建一种S曲线（使用S型函数），这也将有助于显示确定性，因为逻辑回归的输出不仅是一或零。
+| 这是标准的逻辑函数，请注意 **输出始终在0到1之间** 
 
 .. figure:: _img/WikiLogistic.svg.png
    :scale: 100%
    :alt: Logistic
 Ref: https://en.wikipedia.org/wiki/Logistic_regression
 
-When to Use
+何时使用
 -----------
 
-Logistic regression is great for situations where you need to classify between two categories.
-Some good examples are accepted and rejected applicants and victory or defeat in a competition.
-Here is an example table of data that would be a good candidate for logistic regression.
+| Logistic回归非常适合需要在两个类别之间进行分类的情况。
+| 一些很好的例子被接受和拒绝的申请者以及在比赛中的胜利或失败。
+| 这是一个示例数据表，可以很好地进行逻辑回归。
 
 =====  =======  =======
-  Studying      Success
+  学习      成功
 --------------  -------
-Hours  Focused  Pass?
+小时  集中  通过?
 =====  =======  =======
 1      False    False
 3      False    True
@@ -47,104 +40,88 @@ Hours  Focused  Pass?
 2      False    True
 =====  =======  =======
 
-Notice that the student's success is determined by the inputs and the value is
-binary, so logistic regression will work well for this scenario.
+
+| 请注意，学生的成功取决于输入，并且该值是二进制的，因此逻辑回归将在这种情况下很好地工作。
 
 
-How does it work?
+它是如何工作的？
 -----------------
 
-Logistic regression works using a linear combination of inputs, so multiple
-information sources can govern the output of the model.
-The parameters of the model are the weights of the various features, and
-represent their relative importance to the result.
-In the equation that follows, you should recognize the formula used in linear regression.
-Logistic regression is, at its base, a transformation from a linear predictor
-to a probability between 0 and 1.
+
+| Logistic回归使用输入的线性组合进行工作，因此多个信息源可以控制模型的输出。
+| 模型的参数是各个特征的权重，并表示它们对结果的相对重要性。
+| 在下面的方程式中，您应该认识到线性回归中使用的公式。
+| 从根本上说，逻辑回归是从线性预测变量到0到1之间的概率的转换。
 
 .. figure:: _img/WikiLogisticEQ.svg
    :alt: Equation
 Ref: https://en.wikipedia.org/wiki/Logistic_regression
 
-As in linear regression, the beta values are the weights and x values are the variable inputs.
-This formula gives the probability that the input belongs to Class B, which
-is the goal of the logistic regression model.
+
+| 与线性回归一样，β值是权重，x值是变量输入。
+| 该公式给出了输入属于B类的可能性，这是逻辑回归模型的目标。
 
 
-Multinomial Logistic Regression
+多项式Logistic回归
 -----------------
 
-Until now, we've been discussing the situation where there are exactly
-two distinct outputs, for example a pass or a fail.
-But, what if there were more than two possible outputs?
-What about the number classification example, where the output can be any digit from 0 to 9?
 
-Well, there is a way to handle that with logistic regression.
-When using the scikit-learn library, as the example code does, the facility is already there.
-With scikit-learn, you can use the multinomial mode and supply any number of
-classes in the training data.
-You can think of the method as creating multiple models and comparing their
-probabilities, but the exact details_ are beyond the scope of this course.
+| 到目前为止，我们一直在讨论恰好有两个截然不同的输出（例如通过或失败）的情况。
+| 但是，如果有两个以上的可能输出呢？关于数字分类示例，其中输出可以是0到9之间的任何数字？
+| 
+| 好吧，有一种方法可以通过逻辑回归来解决这个问题。
+| 当使用scikit-learn库时，如示例代码所示，该功能已经存在。
+| 使用scikit-learn，您可以使用多项式模式并在训练数据中提供任意数量的课程。
+| 您可以将这种方法视为创建多个模型并比较它们的概率，但是确切的细节（ details_ ）不在本课程的讨论范围之内。
 
 .. _details: https://en.wikipedia.org/wiki/Multinomial_logistic_regression
 
-Code
+代码
 -----------------
 
-Check out the example_ for logistic regression in our repository.
+在我们的存储库中查看逻辑回归的例子（ example_ ）
 
 .. _example: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/supervised/Logistic_Regression/logistic_ex1.py
 
-In the example, scikit-learn and numpy are used to train a simple logistic regression model.
-The model is basic, but extensible.
-With logistic regression, more features could be added to the data set
-seamlessly, simply as a column in the 2D arrays.
 
-The code creates a 2D array representing the training input, in this case it is
-1000 x 1, since there are 1000 samples and 1 feature.
-These inputs are scores out of 1000.
-A training output array is also created, with the classification of 1 for
-pass and 0 for fail, based on a threshold.
-Then, scikit-learn's LogisticRegression_ class is used to fit a logistic
-regression classifier to the data.
-After that, the next step is to test for accuracy with a different data set.
-So, we create another 100 random samples to test against, and predict against them using the model.
+| 在示例中，scikit-learn和numpy用于训练简单的逻辑回归模型。
+| 该模型是基本的，但可扩展。
+| 使用逻辑回归，可以将更多功能无缝添加到数据集，就像在2D数组中的一列一样。
+| 
+| 该代码创建一个表示训练输入的2D数组，在这种情况下为1000 x 1，因为有1000个样本和1个要素。
+| 这些输入的总分是1000分。还会创建一个训练输出数组，根据阈值将其分类为1（合格）和0（失败）。
+| 然后，使用scikit-learn的 LogisticRegression_ 类将Logistic回归分类器拟合到数据中。
+| 之后，下一步就是使用其他数据集测试准确性。
+| 因此，我们创建了另外100个随机样本进行测试，并使用模型对其进行预测。
 
 .. _LogisticRegression: https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
 
-Motivation
+动机
 -----------------
 
-Why use logistic regression?
-Logistic regression is well suited to the case of **binary classification**,
-or classifying in 2 categories.
-Logistic regression is also a relatively simple method, utilizing a weighted
-sum of inputs, similar to linear regression.
-Logistic regression is also useful in that it gives a continuous value,
-representing the probability of a given classification being correct.
-For these reasons, advocates say that logistic regression should be the
-first_ thing learned in the data science world.
+| 为什么要使用逻辑回归？
+| Logistic回归非常适合二进制分类或分为2类的情况。
+| 逻辑回归也是一种相对简单的方法，它利用输入的加权总和，类似于线性回归。
+| 逻辑回归也是有用的，因为它给出一个连续的值，表示给定分类正确的可能性。
+| 出于这些原因，倡导者们说逻辑回归应该是数据科学界的 第一件事(first_ )。
 
 .. _first: https://towardsdatascience.com/5-reasons-logistic-regression-should-be-the-first-thing-you-learn-when-become-a-data-scientist-fcaae46605c4
 
-Conclusion
+结论
 -----------------
 
-Logistic regression build upon linear regression by extending its use to classification.
-Although it is not able to classify into more than two classes, it is still
-effective in what it does, and simple to implement.
-Consider logistic regression as the first thought pass/fail method.
-When you just need a pass/fail probability from data, logistic regression is the simplest and likely best option.
 
-Machine learning libraries make using Logistic Regression very simple.
-Check out the example code in the repository and follow along.
-The basic idea is to supply the training data as pairs of input and
-classification, and the model will be built automatically.
-As always, keep in mind the basics mentioned in the overview section of this
-repository, as there is no fool-proof method for machine learning.
+| 逻辑回归通过将线性回归扩展到分类来建立。
+| 尽管它不能分类为两个以上的类，但是它的作用仍然很有效，并且易于实现。
+| 将逻辑回归视为第一个思想通过/失败的方法。
+| 当您仅需要数据通过/失败概率时，逻辑回归是最简单且可能是最佳选择。
+| 
+| 机器学习库使使用Logistic回归非常简单。在存储库中查看示例代码，然后继续。
+| 基本思想是将训练数据作为输入和分类对提供，模型将自动建立。
+| 与往常一样，请记住该存储库概述部分中提到的基础知识，因为没有适用于机器学习的万无一失的方法。
 
 
-References
+参考资料
 ----------
 
 1. https://towardsdatascience.com/logistic-regression-b0af09cdb8ad
