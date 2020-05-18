@@ -1,5 +1,5 @@
 ##########################
-Naive Bayes Classification
+朴素贝叶斯分类(Naive Bayes Classification)
 ##########################
 
 .. contents::
@@ -8,15 +8,20 @@ Naive Bayes Classification
 
 
 **********
-Motivation
+动机
 **********
-A recurring problem in machine learning is the need to classify input into
-some preexisting class. Consider the following example.
+| 机器学习中经常出现的问题是需要将输入分类为某个预先存在的class。
+| 考虑以下示例。
+
 
 Say we want to classify a random piece of fruit we found lying around. In this
 example, we have three existing fruit categories: apple, blueberry, and
 coconut. Each of these fruits have three features we care about: size, weight,
 and color. This information is shown in *Figure 1*.
+| 假设我们要对发现的随机分布的水果进行分类。
+| 在此示例中，我们有三个现有的水果类别：苹果，蓝莓和椰子(pple, blueberry, and coconut)
+| 这些水果中的每一个都有我们关注的三个特征：大小，重量和颜色。
+| 此信息如图1所示。
 
 .. csv-table:: **Figure 1. A table of fruit characteristics**
    :header: "", "Apple", "Blueberry", "Coconut"
@@ -26,95 +31,83 @@ and color. This information is shown in *Figure 1*.
    "Weight", "Moderate", "Light", "Heavy"
    "Color", "Red", "Blue", "Brown"
 
-We observe the piece of fruit we found and determine it has a moderate size,
-it is heavy, and it is red. We can compare these features against the features
-of our known classes to guess what type of fruit it is. The unknown fruit is
-heavy like a coconut but it shares more features with the apple class. The
-unknown fruit shares 2 of 3 characteristics with the apple class so we guess
-that it’s an apple. We used the fact that the random fruit is moderately sized
-and red like an apple to make our guess.
 
-This example is a bit silly but it highlights some fundamental points about
-classification problems. In these types of problems, we are comparing features
-of an unknown input to features of known classes in our data set. Naive Bayes
-classification is one way to do this.
+| 我们观察发现的那块水果，确定其大小适中，较重且为红色。
+| 我们可以将这些功能与已知类的功能进行比较，以猜测它是哪种水果。
+| 未知的水果像椰子一样重，但与苹果类具有更多的共同特征。
+| 未知水果与苹果类共有3个特征中的2个，因此我们猜测它是一个苹果。
+| 我们使用随机水果大小适中且像苹果一样红色的事实来猜测。
+| 
+| 这个例子有点愚蠢，但是它突出了有关分类问题的一些基本要点。
+| 在这些类型的问题中，我们正在将未知输入的特征与数据集中已知类的特征进行比较。
+| 朴素贝叶斯分类是实现此目的的一种方法。
 
 
 ***********
-What is it?
+它是什么？
 ***********
-Naive Bayes is a classification technique that uses probabilities we already
-know to determine how to classify input. These probabilities are related to
-existing classes and what features they have. In the example above, we choose
-the class that most resembles our input as its classification. This
-technique is based around using Bayes’ Theorem. If you’re unfamiliar with what
-Bayes’ Theorem is, don’t worry! We will explain it in the next section.
+
+| 朴素贝叶斯是一种分类技术，它使用我们已经知道的概率来确定如何对输入进行分类。
+| 这些概率与现有类及其具有的功能有关。
+| 在上面的示例中，我们选择与输入最相似的类作为其分类。
+| 该技术基于使用贝叶斯定理。
+| 如果您不了解贝叶斯定理是什么，请不要担心！我们将在下一部分中对其进行解释。
 
 
 **************
-Bayes’ Theorem
+贝叶斯定理(Bayes’ Theorem)
 **************
-Bayes’ Theorem [*Equation 1*] is a very useful result that shows up in
-probability theory and other disciplines.
+
+贝叶斯定理[*Equation 1*] 是非常有用的结果，在概率论和其他学科中都得到了证明。
 
 .. figure:: _img/Bayes.png
 
    **Equation 1. Bayes' Theorem**
 
-With Bayes’ Theorem, we can examine conditional probabilities (the probability
-of an event happening given another event has happened). P(A|B) is the
-probability that event A will happen given that event B has already happened.
-We can determine this value using other information we know about events A and
-B. We need to know P(B|A) (the probability that event B will happen given that
-event A has already happened), P(B) (the probability event B will happen), and
-P(A) (the probability event A will happen). We can even apply Bayes’ Theorem
-to machine learning problems!
+
+| 利用贝叶斯定理，我们可以检查条件概率（在发生另一个事件的情况下事件发生的概率）。
+| P（A | B）是在事件B已经发生的情况下事件A将发生的概率。
+| 我们可以使用已知的有关事件A和事件B的其他信息来确定该值。
+| 我们需要知道P（B | A）（假设事件A已经发生，事件B发生的概率），P（B）（概率事件B将发生）和P（A）（事件A将发生的概率）。
+| 我们甚至可以将贝叶斯定理应用于机器学习问题！
 
 
 ***********
-Naive Bayes
+朴素贝叶斯(Naive Bayes)
 ***********
-Naive Bayes classification uses Bayes’ Theorem with some additional
-assumptions. The main thing we will assume is that features are independent.
-Assuming independence means that the probability of a set of features
-occurring given a certain class is the same as the product of all the
-probabilities of each individual feature occurring given that class. In the
-case of our fruit example above, being red does not affect the probability of
-being moderately sized so assuming independence between color and size is
-fine. This is often not the case in real-world problems where features may
-have complex relationships. This is why “naive” is in the name. If the math
-seems complicated, don’t worry! The code will handle the number crunching for
-us. Just remember that we are assuming that features are independent of each
-other to simplify calculations.
 
-In this technique, we take some input and calculate the probability of it
-happening given that it belongs to one of our classes. We must do this for
-**each** of our classes. After we have all these probabilities, we just take
-the one that’s the largest as our prediction for what class the input belongs
-to.
+| 朴素贝叶斯分类使用贝叶斯定理和一些其他假设。
+| 我们将假设的主要特征是功能是独立的。
+| 假设独立性意味着给定特定类别出现一组特征的概率与给定该类别出现每个单个特征的所有概率的乘积相同。
+| 在上面的水果示例中，红色不会影响中等大小的可能性，因此假设颜色和大小之间的独立性很好。
+| 在要素可能具有复杂关系的现实世界问题中通常不是这种情况。
+| 这就是为什么“naive”是名字的原因。
+| 如果数学看起来很复杂，请不要担心！该代码将为我们处理数字运算。请记住，我们假设要素彼此独立以简化计算。
+| 
+| 在这项技术中，我们接受一些输入，并计算它发生的可能性，因为它属于我们的类别之一。我们必须对每个classes都这样做 。
+| 在获得所有这些概率之后，我们仅将最大的概率作为我们对输入所属类别(classes)的预测。
 
 
 **********
-Algorithms
+算法(Algorithms)
 **********
-Below are some common models used for Naive Bayes classification. We have
-separated them into two general cases based on what type of feature
-distributions they use: continuous or discrete. Continuous means real-valued
-(you can have decimal answers) and discrete means a count (you can only have
-whole number answers). Also provided are the relevant code snippets for each
-algorithm.
 
-Gaussian Model (Continuous)
+| 以下是用于朴素贝叶斯分类的一些常见模型。
+| 根据使用的特征分布类型，我们将它们分为两种一般情况：
+1.连续(continuous)-----连续表示实数值(real-valued)（可以有十进制(decimal)答案）
+2.离散(discrete)-------离散表示计数（只能有整数(whole number)答案）
+| 还提供了每种算法的相关代码段。
+
+高斯模型（连续）Gaussian Model (Continuous)
 ===========================
-Gaussian models assume features follow a normal distribution. As far as you 
-need to know, a normal distribution is just a specific type of probability 
-distribution where values tend to be close to the average. As you can see in 
-*Figure 2*, the plot of a normal distribution has a bell shape. Values are 
-most frequent around the peak of the plot and tend to be rarer the farther 
-away you go. This is another big assumption because many features do not 
-follow a normal distribution. While this is true, assuming a normal 
-distribution makes our calculations a whole lot easier. We use Gaussian models 
-when features are not counts and include decimal values.
+
+| 高斯模型假设特征（features）服从正态分布（normal distribution）。
+| 据您所知，正态分布只是概率值的一种特定类型，其中值趋于接近平均值。
+| 正如你可以看到 图2，正态分布的情节有一个钟形。
+| 值在图的峰值附近最频繁，并且越远越难得。
+| 这是另一个很大的假设，因为许多功能未遵循正态分布。
+| 虽然这是事实，但假设正态分布会使我们的计算变得容易得多。
+| 当特征不计数且包含十进制值时，我们使用高斯模型。
 
 .. figure:: _img/Bell_Curve.png 
 
@@ -123,18 +116,18 @@ when features are not counts and include decimal values.
    
    .. __: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/supervised/Naive_Bayes/bell_curve.py
 
-The relevant code is available in the gaussian.py_ file.
+相关代码可在 gaussian.py_ 文件中找到。
 
 .. _gaussian.py: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/supervised/Naive_Bayes/gaussian.py
 
-In the code, we try and guess a color from given RGB percentages. We create
-some data to work with where each data point represents an RGB triple. The
-values of the triples are decimals ranging from 0 to 1 and each has a color
-class it is associated with. We create a Gaussian model and fit it to the
-data. We then make a prediction with new input to see which color it should be
-classified as.
 
-Multinomial Model (Discrete)
+| 在代码中，我们尝试从给定的RGB百分比猜测颜色。
+| 我们创建一些数据来处理，其中每个数据点代表一个RGB三元组。
+| 三元组的值是从0到1的十进制数，每个值都有与之关联的颜色类别。
+| 我们创建一个高斯模型并将其拟合到数据中。
+| 然后，我们使用新的输入进行预测，以查看应将其分类为哪种颜色。
+
+多项式模型（离散）Multinomial Model (Discrete)
 ============================
 Multinomial models are used when we are working with discrete counts.
 Specifically, we want to use them when we are counting how often a feature
@@ -142,6 +135,11 @@ occurs. For example, we might want to count how often the word “count” appea
 on this page. *Figure 3* shows the sort of data we might use with a 
 multinomial model. If we know the counts will only be one of two values, we 
 should use a Bernoulli model instead.
+| 当我们处理离散计数（discrete counts）时，将使用多项式模型。
+| 具体来说，我们在计算功能出现的频率时要使用它们。
+| 例如，我们可能想计算“count(计数)”一词在此页面上出现的频率。
+| 图3显示了我们可能在多项模型中使用的数据类型。
+| 如果我们知道计数将只是两个值之一，则应改用Bernoulli模型。
 
 .. csv-table:: **Figure 3. A table of word frequencies for this page**
    :header: "Word", "Frequency"
@@ -152,28 +150,26 @@ should use a Bernoulli model instead.
    "Count", "2"
    "Data", "12"
 
-The relevant code is available in the multinomial.py_ file.
+相关的代码位于 multinomial.py_ file文件中。
 
 .. _multinomial.py: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/supervised/Naive_Bayes/multinomial.py
 
-The code is based on our fruit example. In the code, we try and guess a fruit
-from given characteristics. We create some data to work with where each data
-point is a triple representing characteristics of a fruit namely size, weight,
-and color. The values of the triples are integers ranging from 0 to 2 and each
-has a fruit class it is associated with. The integers are basically just
-labels associated with characteristics but using them instead of strings
-allows us to use a Multinomial model. We create a Multinomial model and fit it
-to the data. We then make a prediction with new input to see which fruit it
-should be classified as.
 
-Bernoulli Model (Discrete)
+| 该代码基于我们的水果示例。在代码中，我们尝试从给定的特性中猜出一个结果。
+| 我们创建一些数据以供处理，其中每个数据点都是代表水果特征（即大小，重量和颜色）的三元组。
+| 三元组的值是介于0到2之间的整数，并且每个都有与之关联的水果类。
+| 整数基本上只是与特征相关的标签，但是使用它们而不是字符串可以使我们使用多项模型。
+| 我们创建一个多项模型并将其拟合到数据中。
+| 然后，我们使用新的输入进行预测，以查看应将其分类为哪种水果。
+
+伯努利模型（离散） Bernoulli Model (Discrete)
 ==========================
-Bernoulli models are also used when we are working with discrete counts.
-Unlike the multinomial case, here we are counting whether or not a feature
-occurred. For example, we might want to check if the word “count” appears at
-all on this page. We can also use Bernoulli models when features only have 2
-possible values like red or blue. *Figure 4* shows the sort of data we might use with a 
-Bernoulli model.
+
+| 当我们处理离散计数时，也会使用伯努利模型。
+| 与多项式情况不同，这里我们在计算是否发生了特征。
+| 例如，我们可能要检查“ count”一词是否在此页面上全部出现。
+| 当要素只有两个可能的值（例如红色或蓝色）时，我们也可以使用伯努利模型。
+| 图4显示了我们可以在Bernoulli模型中使用的数据种类。
 
 .. csv-table:: **Figure 4. A table of word appearances on this page**
    :header: "Word", "Present?"
@@ -184,34 +180,32 @@ Bernoulli model.
    "Count", "True"
    "Data", "True"
 
-The relevant code is available in the bernoulli.py_ file.
+相关代码可在 bernoulli.py_ 文件中找到。
 
 .. _bernoulli.py: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/supervised/Naive_Bayes/bernoulli.py
 
-In the code, we try and guess if something is a duck or not based on certain
-characteristics it has. We create some data to work with where each data point
-is a triple representing the characteristics: walks like a duck, talks like a
-duck, and is small. The values of the triples are either 1 or 0 for true or
-false and each is either a duck or not a duck. We create a Bernoulli model and
-fit it to the data. We then make a prediction with new input to see whether or
-not it is a duck.
+
+| 在代码中，我们尝试根据某物的某些特征来猜测某物是否为鸭子。
+| 我们创建一些数据来处理，每个数据点都是代表特征的三元组：走路像鸭子一样，说话像鸭子一样，很小。
+| 三元组的值为true或false的值为1或0，并且每个值为鸭子或不是鸭子。
+| 我们创建一个伯努利模型并将其拟合到数据中。
+| 然后，我们用新的输入进行预测，以查看它是否是鸭子。
 
 
 **********
-Conclusion
+结论
 **********
-In this module, we learned about Naive Bayes classification. Naive Bayes
-classification lets us classify an input based on probabilities of existing
-classes and features. As demonstrated in the code, you don’t need a lot of
-training data for Naive Bayes to be useful. Another bonus is speed which can
-come in handy for real-time predictions. We make a lot of assumptions to use
-Naive Bayes so results should be taken with a grain of salt. But if you don’t
-have much data and need fast results, Naive Bayes is a good choice for
-classification problems.
+
+| 在本模块中，我们了解了朴素贝叶斯分类。
+| 朴素贝叶斯分类使我们可以根据现有类和要素的概率对输入进行分类。
+| 如代码中所示，您不需要大量的培训数据就可以使Naive Bayes有用。
+| 另一个好处是速度，它可以用于实时预测。
+| 我们对使用朴素贝叶斯（Naive Bayes）做出了很多假设，因此应以一粒盐作为结果。
+| 但是，如果您没有太多数据并且需要快速得出结果，那么朴素贝叶斯是解决分类问题的理想选择。
 
 
 ************
-References
+参考文献
 ************
 
 1. https://machinelearningmastery.com/naive-bayes-classifier-scratch-python/
