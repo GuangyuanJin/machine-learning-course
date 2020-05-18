@@ -1,23 +1,22 @@
 ====================
-k-Nearest Neighbors
+k近邻算法(k-Nearest Neighbors)
 ====================
 
 .. contents::
   :local:
   :depth: 3
 
-Introduction
+介绍
 -------------
 
-K-Nearest Neighbors (KNN) is a basic classifier for machine learning.
-A **classifier** takes an already labeled data set, and then it trys to 
-label new data points into one of the catagories. 
-So, we are trying to identify what class an object is in. To do this we 
-look at the closest points (neighbors) to the object and the class with 
-the majority of neighbors will be the class that we identify the object 
-to be in. The k is the number of nearest neighbors to the object. So, if 
-k = 1 then the class the object would be in is the class of the closest 
-neighbor. Let's look at an example.
+| 
+| K最近邻居（K-Nearest Neighbors:KNN）是机器学习的基本分类器。
+|  **分类器(classifier)** 需要一个已标记的数据集，然后标记新的数据点为分类(catagories)之一。
+| 因此，我们正在尝试确定对象所在的类。
+| 为此，我们查看与对象最接近的点（邻居），并且拥有最多邻居的类将成为我们确定对象所属的类。 
+| k是与对象最近的邻居数。
+| 因此，如果k = 1，则该对象所在的class是最近邻居的class。
+| 让我们看一个例子。
 
 .. figure:: _img/knn.png
    :scale: 100 %
@@ -25,39 +24,38 @@ neighbor. Let's look at an example.
 
    Ref: https://coxdocs.org
 
-In this example we are trying to classify the red star to be either 
-a green square or a blue octagon. First, if we look at the inner circle
-where k = 3, we can see that there are 2 blue octagons and 1 green square.
-So there is a majority of blue octagons, so the red star would be classified
-as a blue octagon. Now we look at k = 5, the outer circle. In this one
-there is 2 blue octagons and 3 green squares. Then, the red star would be 
-classified as a green square.
 
-How does it work?
+| 在此示例中，我们尝试将红色星形分类为绿色正方形或蓝色八边形。
+| 首先，如果我们看k = 3的内圆，我们可以看到有2个蓝色八边形和1个绿色正方形。
+| 因此，蓝色八角形占大多数，因此红色星号将被分类为蓝色八角形。
+| 现在我们看k = 5，即外圆。在这一个中，有2个蓝色八边形和3个绿色正方形。
+| 然后，红星将被分类为绿色方块。
+
+它是如何工作的？
 -----------------
 
-We will look at two different ways to go about this. The two ways are
-the brute force method and the K-D tree method.
 
-Brute Force Method
+| 我们将研究两种不同的解决方法。两种方法是
+1.蛮力法(brute force method)
+2.KD树法(K-D tree method)
+
+暴力法(Brute Force Method)
 --------------------
 
-This is the simplest method. Basically, it's just calculating the **Euclidean 
-distance** from the object being classified to each point in the set. The Euclidean distance
-is simply the length of a line segment that connects two points. The Brute Force method is
-useful when the dimensions of the points are small or the number of points is small.
-As the number of points increases the number of times the method will have to calculate
-the Euclidean distance also increases, so the performance of the method drops. Luckily,
-the K-D tree method is better equipped for larger sets of data. 
+| 
+| 这是最简单的方法。
+| 基本上，它只是计算从被分类对象到集合中每个点的 **欧几里得距离(Euclidean distance)** 。
+| 欧几里得距离就是连接两个点的线段的长度。
+| 当点的尺寸较小或点数较小时，“暴力”方法很有用。
+| 随着点数的增加，该方法必须计算欧几里德距离的次数也增加，因此该方法的性能下降。
+| 幸运的是，KD树方法可以更好地处理更大的数据集。
 
-K-D Tree Method
+KD树方法(K-D Tree Method)
 -----------------
 
-This method tries to improve the running time by reducing the amount of times we
-calculate the Euclidean distance. The idea behind this method is that if we know
-that two data points are close to each other and we calculate the Euclidean distance
-to one of them and then we know that distance is roughly close to the other point. 
-Here is an example of how the K-D tree looks like.
+| 该方法试图通过减少计算欧几里得距离的次数来改善运行时间。
+| 该方法背后的思想是，如果我们知道两个数据点彼此靠近，并且我们计算了到其中一个的欧几里得距离，那么我们知道该距离大致接近另一个点。
+| 这是KD树的外观示例。
 
 .. figure:: _img/KNN_KDTree.jpg
    :scale: 100 %
@@ -65,71 +63,140 @@ Here is an example of how the K-D tree looks like.
 
    Ref: https://slideplayer.com/slide/3273367/
 
-How a K-D tree works is that a node in the tree represents and holds data from an n-dimensional
-graph. Each node represents a box in the graph. First we can build a K-D tree out of a set of data, then 
-when it's time to classify a point we would just look at where the point will fall in the 
-tree then calculate the Euclidean distance between only the points it is close to until we reach 
-k neighbors. 
 
-If you have a larger data set it is recommended to use this method. This is because the cost of creating
-the K-D tree is relatively low if the data set is larger, and the cost of classifiying a point is 
-constant as the data gets larger. 
+| KD树的工作方式是树中的一个节点表示并保存n维图的数据。
+| 每个节点代表图中的一个框。
+| 
+| 首先，我们可以根据一组数据构建一个KD树，
+| 然后当需要对一个点进行分类时，我们只需查看该点将落在树中的位置，
+| 然后计算仅在其接近的点之间的欧几里得距离，直到我们达到k个邻居。
+| 
+| 如果数据集较大，建议使用此方法。
+| 这是因为，如果数据集较大，则创建KD树的成本相对较低，并且随着数据变大，对点进行分类的成本是恒定的。
 
 
-Choosing k
+选择k
 -----------
 
-Choosing k typically depends on the dataset you are looking at. You never want to
-choose k = 2 because it has a very high chance that there won't be a majority class,
-so in the example above there would be one of each so we wouldn't be able to 
-classify the red star. Typically, you want the value of k to be small. As k goes to 
-infinity all unidentified data points will always be classified to one class or the other
-depending on which class has more data points. You don't want this to happen,
-so it is wise to choose a k that is relatively small.
+| 选择k通常取决于您要查看的数据集。
+| 您永远不要选择k = 2，因为它极有可能不会出现多数类，因此在上面的示例中将每个中都有一个，因此我们无法对红星进行分类。
+| 通常，您希望k的值较小。
+| 当k趋于无穷大时，所有未识别的数据点将始终归为一类或另一类，具体取决于哪一类具有更多数据点。
+| 您不希望发生这种情况，因此选择较小的k是明智的。
 
-Conclusion
+结论
 ------------
 
-Here are some things to take away:
+以下是一些要带走(take away)的东西：
 
-- The different methods to KNN only affect the performance, not the output
-- The Brute Force Method is best when the dimensions of the points or the number of points are small
-- The K-D Tree Method is best when you have a larger data set
-- SKLearn KNN classifier has a auto method which decides what method to use given what data it's trained on. 
+- KNN的不同方法只会影响性能，而不会影响输出
+- 当点的尺寸或点数较小时，最好使用暴力法
+- 当您拥有更大的数据集时，KD树方法是最好的
+- SKLearn KNN分类器具有自动方法，该方法可以根据训练的数据来决定使用哪种方法。
 
-Choosing the value of k will drastically change how the data is classified. A higher k value will ignore outliers to the data 
-and a lower will give more weight to them. If the k value is too high it will not be able to classify the data, so k needs to 
-be relatively small. 
 
-Motivation
+| 选择k的值将大大改变数据的分类方式。
+| 较高的k值将忽略数据的异常值（outliers），而较低的k值将赋予它们更大的权重。
+| 如果k值太高，将无法对数据进行分类，因此k需要相对较小。
+
+动机
 ------------
 
-So why would someone use this classifier over another? Is this the best classifier? The answer to these questions are that it depends. 
-There is no classifier that is best, it all depends on the data that a classifier is given. KNN might be the best for one dataset but 
-not another. It's good to know about other classifiers like `Support Vector Machines`_, and then decide which one best classifies the 
-a given dataset.
 
-Code Example
+| 那么为什么有人会在另一个分类器上使用这个分类器呢？这是最好的分类器吗？这些问题的答案取决于它。
+| 没有最好的分类器，这完全取决于给出分类器的数据。
+| 对于一个数据集，KNN可能是最好的，但对于另一个数据集，KNN可能不是最好的。
+| 最好了解其他分类器（如支持向量机 `Support Vector Machines`_），然后确定哪个分类器最好地分类了给定的数据集。
+
+代码示例
 -------------
 
-Check out our code, `knn.py`_ to learn how to implement a k nearest neighbor classifier using Python's Scikit-learn library. 
-More information about Scikit-Learn can be found `here`_. 
+.. code-block:: python
+            # All the libraries we need for KNN
+            import numpy as np
+            import matplotlib.pyplot as plt
 
-`knn.py`_, Classifies a set of data on breast cancer, loaded from Scikit-Learn's dataset library. 
-The program will take the data and plot them on a graph, then use the KNN algorithm to best separate the data. 
-The output should look like this:
+            from sklearn.neighbors import KNeighborsClassifier
+            # This is used for our dataset
+            from sklearn.datasets import load_breast_cancer
+
+
+            # =============================================================================
+            # We are using sklearn datasets to create the set of data points about breast cancer
+            # Data is the set data points
+            # target is the classification of those data points. 
+            # More information can be found at:
+            #https://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_breast_cancer.html#sklearn.datasets.load_breast_cancer
+            # =============================================================================
+            dataCancer = load_breast_cancer()
+
+            # The data[:, x:n] gets two features for the data given. 
+            # The : part gets all the rows in the matrix. And 0:2 gets the first 2 columns 
+            # If you want to get a different two features you can replace 0:2 with 1:3, 2:4,... 28:30, 
+            # there are 30 features in the set so it can only go up to 30.
+            # If we wanted to plot a 3 dimensional plot then the difference between x and n needs to be 3 instead of two
+            data = dataCancer.data[:, 0:2]
+            target = dataCancer.target
+
+            # =============================================================================
+            # This creates the KNN classifier and specifies the algorithm being used and the k
+            # nearest neighbors used for the algorithm. more information can about KNeighborsClassifier
+            # can be found at: https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KNeighborsClassifier.html
+            #
+            # Then it trains the model using the breast cancer dataset. 
+            # =============================================================================
+            model = KNeighborsClassifier(n_neighbors = 9, algorithm = 'auto')
+            model.fit(data, target)
+
+
+            # plots the points 
+            plt.scatter(data[:, 0], data[:, 1], c=target, s=30, cmap=plt.cm.prism)
+
+            # Creates the axis bounds for the grid
+            axis = plt.gca()
+            x_limit = axis.get_xlim()
+            y_limit = axis.get_ylim()
+
+            # Creates a grid to evaluate model
+            x = np.linspace(x_limit[0], x_limit[1])
+            y = np.linspace(y_limit[0], y_limit[1])
+            X, Y = np.meshgrid(x, y)
+            xy = np.c_[X.ravel(), Y.ravel()]
+
+            # Creates the line that will separate the data
+            boundary = model.predict(xy)
+            boundary = boundary.reshape(X.shape)
+
+
+            # Plot the decision boundary
+            axis.contour(X, Y,  boundary, colors = 'k')
+
+            # Shows the graph
+            plt.show()
+
+
+| 查看我们的代码 `knn.py`_ 以了解如何使用Python的Scikit-learn库实现ak最近邻居分类器。
+| 可以在此处( `here`_)找到有关Scikit-Learn的更多信息。
+
+
+| `knn.py`_, 对从Scikit-Learn的数据集库加载的一组乳腺癌数据进行分类。
+| 该程序将获取数据并将其绘制在图形上，然后使用KNN算法来最好地分离数据。
+| 输出应如下所示：
+
 
 .. figure:: _img/knn_output_k9.png
    :scale: 100%
    :alt: KNN k = 9 output
 
-The green points are classified as benign.
-The red points are classified as malignant.
-The boundary line is the prediction that the classifier makes. This boundary line is determined by the k value, for this instance
-k = 9. 
 
-This loads the data from the Scikit-Learn's dataset library. You can change the data to whatever you would like. 
-Just make sure you have data points and an array of targets to classify those data points. 
+| 绿点被分类为良性。
+| 红点归类为恶性。
+| 边界线是分类器做出的预测。
+| 该边界线由k值确定，在这种情况下，k = 9。
+| 
+| 这将从Scikit-Learn的数据集库中加载数据。
+| 您可以将数据更改为所需的任何数据。
+| 只要确保您有数据点和一系列目标即可对这些数据点进行分类。
 
 .. code:: python
 
@@ -137,29 +204,33 @@ Just make sure you have data points and an array of targets to classify those da
     data = dataCancer.data[:, :2]
     target = dataCancer.target
 
-You can also change the k value or n_neighbors value that will change the algorithm. It is suggested that you 
-choose a k that is relatively small. 
 
-You can also change the algorithm used, the options are 
-{‘auto’, ‘ball_tree’, ‘kd_tree’, ‘brute’}. These don't change the output of the prediction, they will just 
-change the time it takes to predict the data. 
-
-Try changing the value of n_neighbors to 1 in the code below. 
+| 您还可以更改将更改算法的k值或n_neighbors值。
+| 建议您选择较小的k。
+| 
+| 您也可以更改使用的算法，选项为{'auto'，'ball_tree'，'kd_tree'，'brute'}。
+| 这些不会更改预测的输出，它们只会更改预测数据所需的时间。
+| 
+| 尝试在下面的代码中将n_neighbors的值更改为1。
 
 .. code:: python
 
     model = KNeighborsClassifier(n_neighbors = 9, algorithm = 'auto')
     model.fit(data, target)
 
-If you changed the value of n_neighbors to 1 this will classify by the point that is closest to the point. The output should look like this:
+| 
+| 如果将n_neighbors的值更改为1，则将按最接近该点的点进行分类。
+| 输出应如下所示：
 
 .. figure:: _img/knn_output_k1.png
    :scale: 100%
    :alt: KNN k = 1 output
 
-Comparing this output to k = 9 you can see a large difference on how it classifies the data. So if you want to ignore outliers you
-will want a higher k value, otherwise choose a smaller k like 1, 3 or 5. You can experiment by choosing a very high k greater than 100.
-Eventually the algorithm will classify all the data into 1 class, and there will be no line to split the data. 
+| 
+| 将该输出与k = 9进行比较，您会发现如何对数据进行分类有很大的不同。
+| 因此，如果您想忽略离群值，则需要较高的k值，否则请选择较小的k（例如1、3或5）。
+| 您可以通过选择大于100的非常高的k进行试验。
+| 最终，算法会将所有数据分类为1类，并且没有行可以拆分数据。
 
 .. _here: https://scikit-learn.org
 
@@ -168,7 +239,7 @@ Eventually the algorithm will classify all the data into 1 class, and there will
 .. _Support Vector Machines: https://machine-learning-course.readthedocs.io/en/latest/content/supervised/linear_SVM.html
 
 
-References
+参考资料
 ----------
 
 1. https://medium.com/machine-learning-101/k-nearest-neighbors-classifier-1c1ff404d265
