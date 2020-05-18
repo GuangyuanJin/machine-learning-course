@@ -1,33 +1,34 @@
 ==========================
-Linear Support Vector Machines
+线性支持向量机(Linear Support Vector Machines)
 ==========================
 
 .. contents::
   :local:
   :depth: 3
 
-Introduction
+介绍
 -------------
 
-A **Support Vector Machine** (SVM for short) is another machine learning algorithm that is used to classify data.
-The point of SVM's are to try and find a line or **hyperplane** to divide a dimensional space which best classifies
-the data points. If we were trying to divide two classes A and B, we would try to best separate the two classes with a 
-line. On one side of the line/hyperplane would be data from class A and on the other side would be from class B. 
-This alogorithm is very useful in classifying because we must to calculate the best line or hyperplane once 
-and any new data points can easily be classified just by seeing which side of the line they fall on. This contrasts with the k-nearest neighbors algortihm, where 
-we would have to calculate each data points nearest neighbors. 
-
-Hyperplane
+| **支持向量机** (Support Vector Machine: SVM) 是另一种机器学习算法，该算法用于分类数据。
+| SVM的重点是尝试找到一条线(line)或超平面(hyperplane)来划分一个维度空间(a dimensional space)，从而最好地对数据点进行分类。
+| 如果我们试图划分两个类A和B，我们将尝试用一条线将这两个类最好地分开。线/超平面的一侧将是A类的数据，而另一侧将是B类的数据。
+| 这种分类法在分类中非常有用，因为我们必须一次计算最佳的线或超平面，任何新的数据点都可以轻松地计算出来。
+| 仅通过查看它们落在行的哪一侧即可对其进行分类。
+| 这与k最近邻居算法相反，在k算法中，我们必须计算每个数据点最近的邻居。
+ 
+ 
+超平面（Hyperplane）
 ----------
-A **hyperplane** depends on the space it is in, but it divides the space into two disconnected parts. For example,  
-1-dimensional space would just be a point, 2-d space a line, 3-d space a plane, and so on. 
+|  **超平面** 取决于它所在的空间，但它划分空间分成两个断开部分。
+|  例如，一维空间将只是一个点，二维空间将是一条线，三维空间将是一个平面，依此类推。
 
-How do we find the best hyperplane/line?
+
+我们如何找到那个最佳的超平面/线？
 ----------------------------------------
 
-You might be wondering that there could be multiple lines that split the data well. In fact, there is an infinite
-amount of lines that can divide two classes. As you can see in the graph below, every line splits the squares and
-the circles, so which one do we choose?
+| 您可能想知道可能会有多行将数据很好地拆分。
+| 实际上，有无数行可以划分两个类。
+| 正如您在下图中所看到的，每一行都将正方形和圆形分开，那么我们选择哪一个呢？
 
 .. figure:: _img/Possible_hyperplane.png
    :scale: 100%
@@ -35,9 +36,10 @@ the circles, so which one do we choose?
 
    Ref: https://towardsdatascience.com/support-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47 
 
-So how does SVM find the ideal line to separate the two classes? It doesn't just pick a random one. The algorithm chooses
-the line/hyperplane with the **maximum margin**. Maximizing the margin will give us the optimal line to classify the data. 
-This is shown in the figure below.  
+
+| 那么SVM如何找到将这两类分开的理想路线呢？它不只是随机选择一个。
+| 该算法选择具有 **最大边距（maximum margin）** 的线/超平面。
+| 最大化边距将为我们提供对数据进行分类的最佳行。如下图所示。
 
 .. figure:: _img/optimal_hyperplane.png
    :scale: 100%
@@ -45,20 +47,20 @@ This is shown in the figure below.
 
    Ref: https://towardsdatascience.com/support-vector-machine-introduction-to-machine-learning-algorithms-934a444fca47 
 
-How to maximize the margin?
+如何最大化边距？
 ---------------------------
 
-The data that is closest to the line is what determines the optimal line. These data points are called 
-**support vectors**. They are shown as the filled in squares and circles above. The distance from these vectors to the
-hyperplane is called the **margin**. In general, the further those points are from the hyperplane, the greater the 
-probability of correctly classifying the data. There is a lot of complex math that goes into finding the support vectors
-and maximizing the margin. We won't go into that; we just want to get the basic idea behind SVMs. 
+| 最接近直线的数据决定了最佳直线。这些数据点称为 **support vectors（支持向量）**。
+| 它们显示为上方的正方形和圆形填充。这些向量到超平面的距离称为 **边距（margin）** 。
+| 通常，这些点距超平面越远，正确分类数据的可能性就越大。
+| 找到支持向量并最大化边距会涉及很多复杂的数学运算。我们不会去讨论；我们只想了解SVM背后的基本思想。
 
-Ignore Outliers
+忽略异常值（Ignore Outliers）
 ---------------
 
-Sometimes data classes will have **outliers**. These are data points that are clearly separated from the rest of their class.
-Support Vector Machines will ignore these outliers. This is shown in the figure below. 
+| 有时数据类会有 **异常值（outliers）** 。这些数据点与其他分类显然是分开的。
+| 支持向量机将忽略这些离群值。
+| 如下图所示。
 
 
 .. figure:: _img/SVM_Outliers.png
@@ -67,15 +69,16 @@ Support Vector Machines will ignore these outliers. This is shown in the figure 
 
    Ref:  https://www.analyticsvidhya.com/blog/2017/09/understaing-support-vector-machine-example-code/
 
-The star that is with the red circles is the outlier. So, the SVM ignores the outlier and creates the best line to separate
-the two classes. 
+
+带有红色圆圈的星星是异常值。因此，SVM将忽略异常值，并创建最佳行以将两个类分开。
 
 
-Kernel SVM
+内核SVM（Kernel SVM）
 -----------
 
-There will be data classes that can't be separated with a simple line or hyperplane. This is called **non-linearly 
-separable data**. Here is an example of that kind of data. 
+| 将存在无法用简单的线或超平面分开的数据类。
+| 这被称为 **非线性可分离数据（non-linearly separable data）**。
+| 这是此类数据的示例。
 
 .. figure:: _img/SVM_Kernal.png
    :scale: 100%
@@ -84,12 +87,13 @@ separable data**. Here is an example of that kind of data.
    Ref:  https://www.analyticsvidhya.com/blog/2017/09/understaing-support-vector-machine-example-code/
 
 
-There is no clear way to separate the stars from the circles. SVMs will be able to classify non-linearly separable
-data by using a trick called the **kernel trick**. Basically, the kernel trick takes the points
-to a higher dimension to turn non-linearly separable data to linear separable data. So the above figure would be
-classified with a circle that separates the data. 
 
-Here is an example of the kernel trick.
+| 没有明确的方法将星星与圆圈分开。
+| SVM将能够使用称为 **内核技巧（kernel trick）** 的技巧对非线性可分离数据进行分类。
+| 基本上，内核技巧将点指向更高的维度，以将非线性可分离数据转换为线性可分离数据。
+| 因此，上图将用圆圈分隔，以分隔数据。
+| 
+| 这是内核技巧的一个示例。
 
 .. figure:: _img/SVM_Kernel2.png
    :scale: 100%
@@ -98,61 +102,129 @@ Here is an example of the kernel trick.
    Ref:  https://www.analyticsvidhya.com/blog/2017/09/understaing-support-vector-machine-example-code/
 
 
-There are three types of kernels:
+有三种类型的内核：
 
-- **Linear** Kernel
-- **Polynomial** Kernel
-- **Radial Basis Function (RBF)** kernel
-
-You can see how these kernels change the outcome of the optimal hyperplane by changing the value of kernel in 
-"model = svm.SVC(kernel = 'linear', C = 10000)" to either 'poly' or 'rbf'. This is in the linear_svm.py. 
+- **线性（Linear）** Kernel
+- **多项式（Polynomial）** Kernel
+- **径向基函数（Radial Basis Function：RBF）** kernel
 
 
-Conclusion
+| 您可以通过将“ model = svm.SVC（kernel ='linear'，C = 10000）”中的内核值更改为'poly'或'rbf'来查看这些内核如何更改最佳超平面的结果。
+| 这是在linear_svm.py中。
+
+
+结论
 -----------
-
-An SVM is a great machine learning technique to classify data. Now that we know a little about SVM's we can show
-the advantages and disadvantages to using this classifier. 
-
-The pros to SVM's:
-
-- Effective in classifying higher dimensional space
-- Saves space on memory because it only uses the support vectors to create the optimal line. 
-- Best classifier when data points are separable
-
-The cons to SVM's:
-
-- Performs poorly when there is a large data set, the training times are longer.
-- Performs badly when the classes are overlapping, i.e. non-separable data points.   
+| 
+| SVM是一种很好的机器学习技术，可以对数据进行分类。
+| 现在，我们对SVM有所了解，我们可以展示使用此分类器的优缺点。
 
 
-Motivation
+| SVM的优点：
+
+- 有效地对高维空间进行分类
+- 节省内存空间，因为它仅使用支持向量来创建最佳行。
+- 数据点可分离时的最佳分类器
+
+
+与SVM的缺点：
+
+- 有大量数据集时效果不佳，训练时间更长。
+- 当类重叠时（即不可分离的数据点），性能会很差。
+
+
+动机
 ----------
 
-Why would you ever use SVMs? There are so many different models that can classify data. Why use this one? 
-This is probably the best classifier if you know the data points are easily separable. Also, it can be extended
-by using kernel tricks, so try using the different kernels like Radial Basis Function (RBF). 
+| 为什么要使用SVM？可以对数据进行分类的模型很多。
+| 为什么要使用这个？如果您知道数据点很容易分离，那么这可能是最好的分类器。
+| 另外，可以使用内核技巧来扩展它，因此请尝试使用不同的内核，例如径向基函数（Radial Basis Function：RBF）。
 
 
-Code Example
+代码示例
 -------------
 
-Check out our code, `linear_svm.py`_ to learn how to implement a linear SVM using Python's Scikit-learn library. 
-More information about Scikit-Learn can be found `here`_. 
+查看我们的代码, `linear_svm.py`_ 了解如何使用Python的Scikit-learn库实现线性SVM。可以在此处 `here`_ 找到有关Scikit-Learn的更多信息。
 
-`linear_svm.py`_, Classifies a set of data on breast cancer, loaded from Scikit-Learn's dataset library. 
-The program will take the data and plot them on a graph, then use the SVM to create a hyperplane to separate the data.
-It also circles the support vectors that determine the hyperplane. The output should look like this:
+.. code:: python
+
+            # All the libraries we need for linear SVM
+            import numpy as np
+            import matplotlib.pyplot as plt
+            from sklearn import svm
+            # This is used for our dataset
+            from sklearn.datasets import load_breast_cancer
+
+
+            # =============================================================================
+            # We are using sklearn datasets to create the set of data points about breast cancer
+            # Data is the set data points
+            # target is the classification of those data points. 
+            # More information can be found athttps://scikit-learn.org/stable/modules/generated/sklearn.datasets.load_breast_cancer.html#sklearn.datasets.load_breast_cancer
+            # =============================================================================
+            dataCancer = load_breast_cancer()
+
+            # The data[:, x:n] gets two features for the data given. 
+            # The : part gets all the rows in the matrix. And 0:2 gets the first 2 columns 
+            # If you want to get a different two features you can replace 0:2 with 1:3, 2:4,... 28:30, 
+            # there are 30 features in the set so it can only go up to 30.
+            # If we wanted to plot a 3 dimensional plot then the difference between x and n needs to be 3 instead of two
+            data = dataCancer.data[:, 0:2]
+            target = dataCancer.target
+
+            # =============================================================================
+            # Creates the linear svm model and fits it to our data points
+            # The optional parameter will be default other than these two,
+            # You can find the other parameters at https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html
+            # =============================================================================
+            model = svm.SVC(kernel = 'linear', C = 10000)
+            model.fit(data, target)
+
+
+            # plots the points 
+            plt.scatter(data[:, 0], data[:, 1], c=target, s=30, cmap=plt.cm.prism)
+
+            # Creates the axis bounds for the grid
+            axis = plt.gca()
+            x_limit = axis.get_xlim()
+            y_limit = axis.get_ylim()
+
+            # Creates a grid to evaluate model
+            x = np.linspace(x_limit[0], x_limit[1], 50)
+            y = np.linspace(y_limit[0], y_limit[1], 50)
+            X, Y = np.meshgrid(x, y)
+            xy = np.c_[X.ravel(), Y.ravel()]
+
+            # Creates the decision line for the data points, use model.predict if you are classifying more than two 
+            decision_line = model.decision_function(xy).reshape(Y.shape)
+
+
+            # Plot the decision line and the margins
+            axis.contour(X, Y,  decision_line, colors = 'k',  levels=[0], 
+                       linestyles=['-'])
+            # Shows the support vectors that determine the desision line
+            axis.scatter(model.support_vectors_[:, 0], model.support_vectors_[:, 1], s=100,
+                       linewidth=1, facecolors='none', edgecolors='k')
+
+            # Shows the graph
+            plt.show()
+
+`linear_svm.py`_, 对从Scikit-Learn的数据集库加载的一组乳腺癌数据进行分类。
+该程序将获取数据并将其绘制在图形上，然后使用SVM创建超平面来分离数据。
+它还绕圈了确定超平面的支持向量。输出应如下所示：
+
 
 .. figure:: _img/linear_svm_output.png
    :scale: 100%
    :alt: Linear SVM output
 
-The green points are classified as benign.
-The red points are classified as malignant.
+| 绿点被分类为良性（benign）。
+| 红点归类为恶性（malignant）。
 
-This loads the data from the Scikit-Learn's dataset library. You can change the data to whatever you would like. 
-Just make sure you have, data points and an array of targets to classify those data points. 
+
+
+| 这将从Scikit-Learn的数据集库中加载数据。您可以将数据更改为所需的任何数据。
+| 只需确保您拥有数据点和一系列目标即可对这些数据点进行分类。
 
 .. code:: python
 
@@ -160,8 +232,10 @@ Just make sure you have, data points and an array of targets to classify those d
     data = dataCancer.data[:, :2]
     target = dataCancer.target
 
-You can also change the kernel to 'rbf' or 'polynomial'. This will create a different hyperplane to classify
-the data. You can change it here in the code:
+
+| 您也可以将内核更改为“ rbf”或“polynomial”。
+| 这将创建一个不同的超平面来对数据进行分类。
+| 您可以在以下代码中对其进行更改：
 
 .. code:: python
 
@@ -174,7 +248,7 @@ the data. You can change it here in the code:
 .. _linear_svm.py: https://github.com/machinelearningmindset/machine-learning-course/blob/master/code/supervised/Linear_SVM/linear_svm.py
 
 
-References
+参考资料
 ----------
 
 1. https://www.analyticsvidhya.com/blog/2017/09/understaing-support-vector-machine-example-code/
