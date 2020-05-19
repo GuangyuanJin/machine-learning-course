@@ -50,8 +50,12 @@
 | 在决定群集(clusters)时，我们可能会考虑 **数据点之间的距离** 。
 | 我们还可以考虑一个 **区域中的数据点密度** 以确定群集(clusters)。
 | 对于此模块，我们将分析两种较常见和流行的方法：
+| 
+
 1. **K-Means**
-2. **Hierarchical**
+2. **Hierarchical** 
+
+| 
 | 在这两种情况下，我们都将使用 *Figure 1* 中的数据集进行分析。
 
 .. figure:: _img/Data_Set.png
