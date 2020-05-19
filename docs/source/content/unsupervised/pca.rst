@@ -29,8 +29,7 @@
 
 | 
 | 降维有两种类型：
-| 
-
+ 
 1.特征消除(feature elimination)
 2.特征提取(feature extraction)
 
