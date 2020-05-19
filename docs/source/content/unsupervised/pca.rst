@@ -29,10 +29,10 @@
 
 | 
 | 降维有两种类型：
- 
-1.特征消除(feature elimination)
-2.特征提取(feature extraction)
-
+| 
+| 1.特征消除(feature elimination)
+| 2.特征提取(feature extraction)
+| 
 |
 | **特征消除(Feature elimination)** 仅涉及从我们认为不必要的数据集中修剪特征。
 | 消除功能的缺点是，我们会失去从删除的功能中获得的任何潜在信息。
