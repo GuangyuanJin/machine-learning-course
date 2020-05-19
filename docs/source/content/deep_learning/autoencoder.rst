@@ -1,55 +1,51 @@
 #############################
-Autoencoders
+自编码器(Autoencoders)
 #############################
 
 ********************************************************
-Autoencoders and their implementations in TensorFlow
+自编码器及其在TensorFlow中的实现
 ********************************************************
 
-In this post, you will learn the notion behind Autoencoders as well as how
-to implement an autoencoder in TensorFlow.
+
+在本文中，您将学习自动编码器背后的概念以及如何在TensorFlow中实现自动编码器。
 
 ********************************************************
-Introduction
+介绍
 ********************************************************
 
-Autoencoders are a kind of neural networks which imitate their inputs and produce the
-exact information at their outputs. They usually include two parts: Encoder and Decoder.
-The encoder transforms the input into a hidden space (hidden layer). The decoder then
-reconstructs the input information as the output. There are various types of autoencoders:
+| 
+| 自动编码器是一种神经网络，可模仿其输入并在其输出处产生确切的信息。
+| 它们通常包括两部分：编码器(Encoder)和解码器(Decoder)。
+| 编码器将输入转换为隐藏空间（隐藏层）(hidden layer)。
+| 然后，解码器将输入信息重建为输出。
+| 有多种类型的自编码器：
+| 
+-   **不完全的自编码器Undercomplete Autoencoders:**：在这种类型中，隐藏的尺寸小于输入的尺寸。训练这种自动编码器可以捕获最突出的功能。但是，在缺乏足够的训练数据的情况下使用过度参数化的体系结构会导致过度拟合，并妨碍学习有价值的功能。线性解码器可以用作PCA。但是，非线性函数的存在创建了更强大的降维模型。
 
--   **Undercomplete Autoencoders:** In this type, the hidden dimension is smaller than the input dimension.
-    Training such autoencoder lead to capturing the most prominent features. However, using an overparameterized
-    architecture in case of a lack of sufficient training data create overfitting and bars learning valuable features.
-    A linear decoder can operate as PCA. However, the existence of non-linear functions create a more powerful
-    dimensionality reduction model.
--   **Regularized Autoencoders:** Instead of limiting the dimension of an autoencoder and the hidden
-    layer size for feature learning, a loss function will be added to prevent overfitting.
--   **Sparse Autoencoders:** Sparse autoencoders allow for representing the information bottleneck
-    without demanding a decrease in the size of the hidden layer. Instead, it operates based on a loss
-    function that penalizes the activations inside a layer.
--   **Denoising Autoencoders (DAE):** We want an autoencoder to be sufficiently sensitive to regenerate
-    the original input but not strictly sensitive so the model can learn a generalizable encoding and decoding.
-    The approach is to insignificantly corrupt the input data with some noise with an uncorrupted data as the target output..
--   **Contractive Autoencoders (CAE):** In this type of autoencoders, for small input variations,
-    the encoded features should also be very similar. Denoising autoencoders force the reconstruction
-    function to resist minor changes of the input, while contractive autoencoders enforce the encoder
-    to resist against the input perturbation.
--   **Variational Autoencoders:** A variational autoencoder (VAE) presents a probabilistic fashion
-    for explaining an observation in hidden space. Therefore, instead of creating an encoder
-    which results in a value to represent each latent feature, the encoder produces a probability
-    distribution for each hidden feature.
+-   **正则化自动编码器Regularized Autoencoders:** 代替限制自动编码器的尺寸和用于特征学习的隐藏层大小，将添加损失函数以防止过拟合。
 
-In this post, we are going to design an Undercomplete Autoencoder
-in TensorFlow to train a low dimension representation.
+-   **稀疏自动编码器Sparse Autoencoders:** ：稀疏自动编码器允许表示信息瓶颈，而无需减小隐藏层的大小。取而代之的是，它基于损失功能对层内的激活进行惩罚。
+
+-   **去噪自动编码器Denoising Autoencoders (DAE):** 我们希望自动编码器足够敏感以重新生成原始输入，但不严格敏感，以便模型可以学习通用的编码和解码。该方法是使用一些没有干扰的数据作为目标输出，以很小的程度破坏输入数据。
+
+-   **压缩自动编码器Contractive Autoencoders (CAE):** 在这种类型的自动编码器中，对于较小的输入变化，编码后的特征也应该非常相似。去噪自动编码器强制重建功能抵抗输入的微小变化，而收缩式自动编码器强制编码器抵抗输入扰动。
+
+-   **变分自动编码器Variational Autoencoders:** 变分自动编码器（VAE）提出了一种概率形式，用于解释隐藏空间中的观察结果。因此，不是创建一个编码器来生成代表每个潜在特征的值，而是为每个隐藏特征生成一个概率分布。
+
+| 
+
+| 在本文中，我们将在TensorFlow中设计一个欠完善的自动编码器，以训练低维表示形式。
+| 
 
 ********************************************************
-Create an Undercomplete Autoencoder
+创建一个不完全自编码器
 ********************************************************
 
-We are working on building an autoencoder with a 3-layer encoder and 3-layer decoder. Each layer of encoder compresses its input along the spatial
-dimensions by a factor of two. Similarly, each segment of the
-decoder increases its input dimensionality by a factor of two.
+| 
+| 我们正在努力构建具有3层编码器和3层解码器的自动编码器。
+| 编码器的每一层都将其输入沿空间维度压缩两倍。
+| 类似地，解码器的每个段将其输入维数增加两倍。
+| 
 
 .. code-block:: python
 
@@ -77,12 +73,13 @@ decoder increases its input dimensionality by a factor of two.
    :align: center
 
    **Figure 1:** Autoencoder
+| 图1：自动编码器
 
-The MNIST dataset contains vectorized images of 28X28. Therefore we
-define a new function to reshape each batch of MNIST images to 28X28 and
-then resize to 32X32. The reason of resizing to 32X32 is to make it a
-power of two and therefore we can easily use the stride of 2 for
-downsampling and upsampling.
+| 
+| MNIST数据集包含28X28的矢量图像。
+| 因此，我们定义了一个新功能，可以将每批MNIST图像的形状调整为28X28，然后调整为32X32。
+| 调整为32X32的原因是使其具有2的幂，因此我们可以轻松地使用2的步幅进行下采样和上采样。
+| 
 
 .. code-block:: python
 
@@ -101,9 +98,9 @@ downsampling and upsampling.
             resized_imgs[i, ..., 0] = transform.resize(imgs[i, ..., 0], (32, 32))
         return resized_imgs
 
-Now we create an autoencoder, define a square error loss and an
-optimizer.
-
+| 
+| 现在，我们创建一个自编码器，定义一个平方误差损失和一个优化器。
+| 
 
 .. code-block:: python
 
@@ -119,9 +116,10 @@ optimizer.
     # initialize the network
     init = tf.global_variables_initializer()
 
-Now we can read the batches, train the network and finally test the
-network by reconstructing a batch of test images.
 
+| 
+| 现在我们可以读取批处理，训练网络并最终通过重建一批测试图像来测试网络。
+| 
 
 .. code-block:: python
 
