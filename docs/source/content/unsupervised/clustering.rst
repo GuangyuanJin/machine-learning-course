@@ -57,6 +57,7 @@
 
 | 
 | 在这两种情况下，我们都将使用 *Figure 1* 中的数据集进行分析。
+| 
 
 .. figure:: _img/Data_Set.png
 
@@ -84,6 +85,7 @@ K均值(K-Means)
 | 第二步是将每个数据点分配给一个群集(clusters)。
 | 我们通过测量数据点和每个中心点之间的距离并选择中心点最接近的群集(clusters)来做到这一点。
 | 此步骤 如 *Figure 2* 所示。
+| 
 
 .. figure:: _img/K_Means_Step2.png
 
@@ -93,7 +95,7 @@ K均值(K-Means)
 | 现在所有数据点都属于一个群集(clusters)，第三步是重新计算每个群集(clusters)的中心点。
 | 这只是属于该群集(clusters)的所有数据点的平均值。
 | 此步骤 如 *Figure 3* 所示。
-
+| 
 
 .. figure:: _img/K_Means_Step3.png
 
@@ -103,7 +105,7 @@ K均值(K-Means)
 | 现在，我们只重复第二和第三步，直到中心在迭代之间停止变化或仅略微变化为止。
 | 结果是K个群集(K clusters)，其中数据点比任何其他群集的中心更靠近其群集的中心。
 | 这在 *Figure 4* 中示出。
-
+| 
 
 .. figure:: _img/K_Means_Final.png
 
@@ -115,6 +117,7 @@ K均值(K-Means)
 | 在整个过程中，我们最终可能会看到集群已被优化，但可能不是最佳的整体解决方案。
 | 在 *Figure 4* 中，我们以一个红色数据点结束，该数据点与红色中心和蓝色中心的距离相等。这源于我们最初的中心选择。
 | 相反， *Figure 5* 显示了在给定不同起始中心的情况下可能达到的另一个结果，并且看起来更好一些。
+| 
 
 .. figure:: _img/K_Means_Final_Alt.png
 
@@ -142,6 +145,7 @@ K均值(K-Means)
 | 每次运行代码时， `random_state` 参数都位于该位置以提供一致的结果。
 | 其余代码将显示 *Figure 6* 中所示的最终图。
 | 
+
 .. figure:: _img/KMeans.png
 
    **Figure 6. A final clustered data set**
@@ -207,6 +211,7 @@ K均值(K-Means)
 
 | 层次聚类(Hierarchical clustering)将数据集想象为群集(clusters)的层次。
 | 我们可以从所有数据点中建立一个巨型群集开始。这在 *Figure 7* 中示出。
+| 
 
 .. figure:: _img/Hierarchical_Step1.png
 
@@ -217,7 +222,7 @@ K均值(K-Means)
 | 这可以通过使用一种算法来实现，以使集群间距离最大化。
 | 这只是一个群集中的节点与另一群集中的节点之间的最小距离。
 | 这在 *Figure 8* 中示出。
-
+| 
 
 
 .. figure:: _img/Hierarchical_Step2.png
@@ -253,6 +258,7 @@ K均值(K-Means)
 | 选择 `n_clusters` 参数为3，因为在out数据集中似乎有3个群集（clusters）。
 | 如果我们还不知道这一点，我们可以尝试不同的值，看看哪个值最有效。
 | 其余代码将显示 *Figure 9* 中所示的最终图。
+| 
 
 .. figure:: _img/Hierarchical.png
 
