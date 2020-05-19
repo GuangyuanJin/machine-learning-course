@@ -89,6 +89,7 @@ PCA示例
 |    此方法高度依赖于您的数据集和要传达的内容。
 |    例如，将您的高阶数据表示在2D空间进行可视化可能会有所帮助。
 |    在这种情况下，您将执行功能简化，直到拥有两个功能。
+| 
 
 2. **累积差异百分比（Percent of cumulative variability）**
 
@@ -97,7 +98,9 @@ PCA示例
 |    选择特征减少步骤数的这种方法涉及选择目标方差百分比。
 |    例如，让我们看一下理论数据集在PCA各个级别上的累积方差图：
 | 
-   .. figure:: _img/pca3.png
+
+
+.. figure:: _img/pca3.png
 
       Ref: https://www.centerspace.net/clustering-analysis-part-i-principal-component-analysis-pca
 
