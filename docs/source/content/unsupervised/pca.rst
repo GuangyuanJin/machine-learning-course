@@ -30,8 +30,10 @@
 | 
 | 降维有两种类型：
 | 
+
 1.特征消除(feature elimination)
 2.特征提取(feature extraction)
+
 |
 | **特征消除(Feature elimination)** 仅涉及从我们认为不必要的数据集中修剪特征。
 | 消除功能的缺点是，我们会失去从删除的功能中获得的任何潜在信息。
@@ -39,7 +41,8 @@
 | **特征提取(Feature extraction)** 通过组合现有特征来创建新变量。
 | 以某些简单性或可解释性为代价，要素提取使您可以维护要素中保存的所有重要信息。
 |
-|主成分分析通过创建一组称为主成分的自变量(independent variables)来处理特征提取(feature extraction)（而不是消除(elimination)）。
+| 主成分分析通过创建一组称为主成分的自变量(independent variables)来处理特征提取(feature extraction)（而不是消除(elimination)）。
+| 
 
 
 PCA示例
